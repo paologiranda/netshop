@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>NetShop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+	<!-- Include bootstrap.js for modal -->
+		<script src="vendor/jquery/dist/jquery.js" /></script>
+		<script src="vendor/jquery/dist/jquery.min.js" /></script>
+ 		<script src="vendor/bootstrap/dist/js/bootstrap.js" /></script>
+	    <script src="vendor/bootstrap/dist/js/bootstrap.min.js" /></script>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" href="assets/favicon.ico" />
+    <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+
+    
+ 
+   <link rel="stylesheet" href="assets/less/style.css"> 
+    <!-- fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<!-- //fonts -->
+    <!-- endbuild -->
+  </head>
+  <body ng-app="app">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+     <div ng-include src="'app/common/loader.html'" ng-show="hasPendingRequests()" ng-controller="common"></div>
+    <hea-der></hea-der>
+    <div class="container">
+    <div ng-view=""></div>
+</div>
+    <div ng-include src="'app/common/footer.html'">
+     </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) app/vendor.js -->
+    <!-- bower:js -->
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-cookies/angular-cookies.js"></script>
+    <script src="vendor/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular-modal-service/dst/angular-modal-service.js"></script>
+    <script src="vendor/angular-modal-service/dst/angular-modal-service.min.js"></script>
+    <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script src="vendor/angular-touch/angular-touch.js"></script>
+    <script src="vendor/angular-token/ngStorage.js"></script>
+	<script src="vendor/angular-token/loading-bar.js"></script>
+	<script src="vendor/ui-bootstrap-tpls-0.14.2.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+	
+	
+        <!-- MAIN -->
+        <script src="app/app.js"></script>
+        <script src="app/main/main.js"></script>
+        <script src="app/main/resources/esempioCallResoruce.js"></script>
+        <script src="app/main/directive/main-directives.js"></script>
+ 
+ 		<!-- ADMIN -->
+        <script src="app/admin/mainAdmin.js"></script> 
+        
+        
+        <!-- CLIENTI -->
+        <script src="app/clienti/myShopping.js"></script> 
+        
+        
+        <!-- ACQUISTO -->
+        <script src="app/acquisto/acquisto.js"></script>
+        
+        
+        <!-- COMMON -->
+        <script src="app/common/directive/common-directives.js"></script>
+        <script src="app/common/services/loginCommon.js"></script>
+        <script src="app/common/common.js"></script>
+          
+         
+        <!-- LOGIN -->
+        <script src="app/login/login.js"></script> 
+        <script src="app/login/services/services.js"></script>
+          
+          
+        <!-- SERVICES -->
+        <script src="app/services/addprod.js"></script>
+        <script src="app/services/data.js"></script>
+        <script src="app/services/subCatService.js"></script>
+        <script src="app/services/addToCarr.js"></script>
+        <script src="app/services/regPrivato.js"></script>
+        <script src="app/services/codConfermaService.js"></script>
+        
+        
+        <!-- REGISTRAZIONE -->
+        <script src="app/registrazione/richiediPwd.js"></script>
+        <script src="app/registrazione/registrazione.js"></script>
+        <script src="app/registrazione/registrazioneprivato.js"></script>
+        <script src="app/registrazione/registrazioneazienda.js"></script>
+        <script src="app/registrazione/inserisciCodiceConferma.js"></script>
+        
+        
+        <!-- PRODOTTI -->
+        <script src="app/prodotti/prodotti.js"></script>
+        <script src="app/prodotti/service/descrizioneProdotto.js"></script>
+        <script src="app/prodotti/resource/categoriaService.js"></script>
+        
+  
+        <script src="assets/environment.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>it.netshop</groupId>
+	<artifactId>Netshop</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>corp1</id>
+			<name>Corporate Repository</name>
+			<url>https://github.com/paologiranda/netshop</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>propSnap</id>
+			<name>Propellors Snapshots</name>
+			<url>https://github.com/paologiranda/netshop</url>
+			<layout>legacy</layout>
+		</snapshotRepository>
+	</distributionManagement>
+	<repositories>
+    <repository>
+      <id>java.net</id>
+      <url>https://github.com/paologiranda/netshop</url>
+    </repository>
+ 	</repositories>
+
+	<modules>
+		<module>netshop-BL</module>
+		<module>netshop-client</module>
+		<module>netshop-web</module>
+  </modules>
+</project>

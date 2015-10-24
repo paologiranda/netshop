@@ -1,0 +1,49 @@
+<div ng-controller="MainCtrl">
+	<hr>
+	<slide-show></slide-show>
+
+	<div style="margin-bottom: 50px;"></div>
+	<div class="col-md-3">
+		<div class="search">
+			<input type="search" class="form-control" ng-model="searchItem"
+				placeholder="Search for...">
+		</div>
+		<!-- news -->
+		<div class="news">
+			<div class="news-text">
+				<h3>LATEST NEWS</h3>
+				<p>Repellat earum rerum hic tenetur a sapiente delectus, ut aut
+					reiciendis voluptatibus maiores alias consequatur aut perferendis
+					doloribus asperiores repellat.</p>
+			</div>
+		</div>
+	</div>
+	<div class="row" align="center">
+		<loading></loading>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<div ng-repeat="item in prodotti | filter:searchItem |limitTo:4 ">
+				<div class="col-lg-6" align="center">
+					<h4>
+						<p>
+							<strong>{{ item.nome }}</strong>
+						</p>
+					</h4>
+					<img src="assets/images/img_01.png" title={{item.descrizione}}><br>
+					<div class="caption">Euro {{ item.prezzo }}</div>
+					<a class="btn btn active" role="button" ng-href="#/descrizione"
+						ng-click="selected(item)" style="margin-bottom: 10px">Entra</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+.loading {
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin: 40px 5px;
+	width: 80px;
+}
+</style>

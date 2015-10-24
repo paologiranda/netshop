@@ -1,0 +1,15 @@
+{
+  "name": "netshop",
+  "version": "1.0.0",
+  "description": "shop online",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GIPA",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "serve": "^1.4.0"
+  }
+}
