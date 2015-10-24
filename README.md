@@ -1,2 +1,2 @@
 # netshop
-nuovo
+Nuovo progetto con maven
