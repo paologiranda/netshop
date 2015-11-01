@@ -4,20 +4,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.netshop.ecommerce.local.dao.DAOLocalita;
-import it.netshop.ecommerce.local.dao.IDAOLocalita;
+import it.netshop.ecommerce.local.dao.DAOLocal;
+import it.netshop.ecommerce.local.dao.IDAOLocal;
 import it.netshop.ecommerce.local.dto.Comune;
 import it.netshop.ecommerce.local.dto.Provincia;
 import it.netshop.ecommerce.local.dto.Regione;
 
 public class GestioneLocal {
 
-	public IDAOLocalita daolocal;
+	public IDAOLocal daolocal;
 	
 	public List<Regione> getRegioni(){
 		List<Regione> regioni = new ArrayList<Regione>();
 		try {
-			daolocal = new DAOLocalita();
+			daolocal = new DAOLocal();
 			regioni = daolocal.leggiRegioni();
 			
 		} catch (SQLException e) {
@@ -33,7 +33,7 @@ public class GestioneLocal {
 		List<Provincia> provincia = new ArrayList<Provincia>();
 		
 		try {
-			daolocal = new DAOLocalita();
+			daolocal = new DAOLocal();
 			provincia = daolocal.leggiProvince(idRegione);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -48,7 +48,7 @@ public class GestioneLocal {
 		List<Comune> comuni = new ArrayList<Comune>();
 		
 		try {
-			daolocal = new DAOLocalita();
+			daolocal = new DAOLocal();
 			comuni = daolocal.leggiComuni(idregione, idprovincia);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

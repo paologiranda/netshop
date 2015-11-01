@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOLocalita implements IDAOLocalita {
+public class DAOLocal implements IDAOLocal {
 	private static int MAX_REGIONI = 21;
 	private static String SQLREGIONI = "SELECT * FROM REGIONI WHERE IDREGIONE<" + MAX_REGIONI;
 

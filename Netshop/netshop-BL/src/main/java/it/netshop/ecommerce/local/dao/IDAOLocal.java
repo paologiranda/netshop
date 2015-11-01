@@ -7,7 +7,7 @@ import it.netshop.ecommerce.local.dto.Comune;
 import it.netshop.ecommerce.local.dto.Provincia;
 import it.netshop.ecommerce.local.dto.Regione;
 
-public interface IDAOLocalita {
+public interface IDAOLocal {
 	
 	public List<Regione> leggiRegioni() throws SQLException;
 	
