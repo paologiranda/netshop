@@ -14,6 +14,8 @@ public class GestioneLocal {
 
 	public IDAOLocal daolocal;
 	
+	public GestioneLocal(){}
+	
 	public List<Regione> getRegioni(){
 		List<Regione> regioni = new ArrayList<Regione>();
 		try {

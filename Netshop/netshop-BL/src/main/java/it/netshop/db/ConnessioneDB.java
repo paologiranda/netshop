@@ -18,9 +18,9 @@ public class ConnessioneDB {
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e) {
+			System.out.println("ERRORE: "+e.getMessage() +"Errore "+DB_DRIVER);
 			Logger.getLogger(ConnessioneDB.class.getName()).log(Level.SEVERE,null,e);
-//			System.out.println("ERRORE: "+e.getMessage());
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
@@ -30,7 +30,8 @@ public class ConnessioneDB {
 		try {
 			connessione = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
 		} catch (SQLException e) {
-			System.out.println("ERRORE: Impossibile connettersi al DB.");
+			System.out.println("ERRORE: Impossibile connettersi al DB."
+					+ "\n DB_URL: "+DB_URL+"\nDB_USER: "+DB_USER+"\nDB_PASSWORD: "+DB_PASSWORD);
 		}
 		return connessione;
 	}
