@@ -3,16 +3,12 @@ package it.netshop.ecommerce.integration.dao;
 import it.netshop.ecommerce.integration.dto.Prodotto;
 import it.netshop.ecommerce.integration.exception.ProdottoInesistente;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
 public class DAOMagazzino extends ADao implements IDAOMagazzino {
 
-	private String url = "jdbc:oracle:thin:@//localhost:1521/XE";
 
 	public DAOMagazzino() throws ClassNotFoundException {
 		super();
@@ -168,17 +164,8 @@ public class DAOMagazzino extends ADao implements IDAOMagazzino {
 		long result = 0;
 		String sql = "select sum(qta) from movimenti where codiceprodotto = '"
 				+ prodotto.getCodice() + "'";
-
-		Connection connessione = DriverManager.getConnection(url, "corso",
-				"corso");
-		PreparedStatement prst = connessione.prepareStatement(sql);
-		ResultSet rs = prst.executeQuery(sql);
-
-		if (rs.next())
-			result = (long) rs.getLong(1);
-
-		System.out.print("la giacenza e' di " + result + " articoli");
-		connessione.close();
+		result = retituisceGiacenza(sql);
+		
 		return result;
 
 	}
@@ -224,46 +211,5 @@ public class DAOMagazzino extends ADao implements IDAOMagazzino {
 		
 		return prodotti;
 	}
-
-	
-//	
-//	@Override
-//	public Prodotto readProdotto(String codice) throws SQLException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public int modificaMovimenti(Prodotto prodotto)
-//			throws ClassNotFoundException, SQLException {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int cancellaProdotto(Prodotto prodotto)
-//			throws ClassNotFoundException, SQLException {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public long restituisciGiacenza() throws SQLException {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int modificaMovimenti(Prodotto prodotto, long codmovimento)
-//			throws ClassNotFoundException, SQLException {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int createmovimento(Prodotto prodotto, long qta, String causale) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
 
 }

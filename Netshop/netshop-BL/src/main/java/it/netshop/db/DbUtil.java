@@ -38,6 +38,11 @@ public class DbUtil {
 		}
 	}
 	
+	public static void close(Connection connessione, Statement statement){
+		close(connessione);
+		close(statement);
+	}
+	
 	public static void close(Connection connessione, Statement statement, ResultSet resultSet){
 		close(connessione);
 		close(statement);
