@@ -5,24 +5,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>it.netshop</groupId>
 		<artifactId>Netshop</artifactId>
+		<groupId>it.netshop</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 <!-- 	<groupId>it.netshop</groupId> -->
 	<artifactId>netshop-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>netshop-client</name>
-	<dependencies>
-		<dependency>
-			<groupId>it.netshop</groupId>
-			<artifactId>Netshop</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>POM</type>
-		</dependency>
-	</dependencies>
-
+	<packaging>war</packaging>
 
 	<build>
 		<finalName>netshop-client</finalName>
@@ -31,9 +22,8 @@
 				<groupId>pl.allegro</groupId>
 				<artifactId>grunt-maven-plugin</artifactId>
 				<version>1.4.1</version>
-				 
-			 
 			</plugin>
 		</plugins>
 	</build>
+	
 </project>

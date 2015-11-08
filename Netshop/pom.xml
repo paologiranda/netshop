@@ -22,16 +22,25 @@
 			<layout>legacy</layout>
 		</snapshotRepository>
 	</distributionManagement>
+	
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+	
 	<repositories>
-    <repository>
-      <id>java.net</id>
-      <url>https://github.com/paologiranda/netshop</url>
-    </repository>
+	    <repository>
+	      <id>java.net</id>
+	      <url>https://github.com/paologiranda/netshop</url>
+	    </repository>
  	</repositories>
 
 	<modules>
 		<module>netshop-BL</module>
-		<module>netshop-client</module>
 		<module>netshop-web</module>
-  </modules>
+		<module>netshop-client</module>
+	</modules>
 </project>

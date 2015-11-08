@@ -4,12 +4,10 @@
 
 <web-app>
    <display-name>Servlet 3.0 Web Application</display-name>
-   
+    
    <servlet>
 		<servlet-name>jersey</servlet-name>
-		<servlet-class>
-                     com.sun.jersey.spi.container.servlet.ServletContainer
-                </servlet-class>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 		     <param-name>com.sun.jersey.config.property.packages</param-name>
 		     <param-value>it.netshop.rest</param-value>
@@ -21,5 +19,13 @@
 		<servlet-name>jersey</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-   
+   <filter>
+    <filter-name>Filtro</filter-name>
+    <filter-class>it.netshop.filter.Proxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Filtro</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
 </web-app>

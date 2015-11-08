@@ -42,6 +42,7 @@
 			<groupId>it.netshop</groupId>
 			<artifactId>netshop-BL</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -49,6 +50,7 @@
 			<version>2.4</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<finalName>netshop-Web</finalName>
 		<plugins>
@@ -62,4 +64,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 </project>
