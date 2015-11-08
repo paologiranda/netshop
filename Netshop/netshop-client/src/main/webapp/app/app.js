@@ -21,10 +21,8 @@ angular.module('app', [
 			    'app.httpRequestTracker',
 			    'ui.bootstrap'
 			  ])
-			  .config(['$routeProvider','$httpProvider', 
-			           function ($routeProvider,$httpProvider) {
-		
-				  $routeProvider.when('/', {
+  .config(['$routeProvider','$httpProvider',function ($routeProvider,$httpProvider) {
+	  $routeProvider.when('/', {
         templateUrl: 'app/main/main.html',
       })
       .when('/about', {
@@ -125,8 +123,7 @@ angular.module('app', [
       .otherwise({
         templateUrl: 'assets/404.html',
       })
-  
-      
+
    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
           return {
               'request': function (config) {
