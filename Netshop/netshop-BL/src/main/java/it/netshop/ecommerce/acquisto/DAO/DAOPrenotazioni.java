@@ -2,11 +2,10 @@ package it.netshop.ecommerce.acquisto.DAO;
 
 import it.netshop.ecommerce.acquisto.IDAOPrenotazioni;
 import it.netshop.ecommerce.acquisto.dto.Prenotazione;
+import it.netshop.ecommerce.acquisto.dto.Util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +17,8 @@ public class DAOPrenotazioni extends ADao implements IDAOPrenotazioni {
 
 	@Override
 	public int inseriscePrenotazione(Prenotazione prenotazione) throws SQLException{
-		String dataPrenotazione = conversioneData(prenotazione.getDataPrenotazione());
-		String dataArrivo = conversioneData(prenotazione.getDataArrivo());
+		String dataPrenotazione = Util.conversioneData(prenotazione.getDataPrenotazione());
+		String dataArrivo = Util.conversioneData(prenotazione.getDataArrivo());
 		String sqlString = "insert into prenotazioni (codprodotto,codcliente,qta,dataprenotazione,dataarrivo) values('" + prenotazione.getCodProdotto() + "'," + 
 						+prenotazione.getCodcliente() +","+ prenotazione.getQta() + "," + "to_date('"+dataPrenotazione+"','dd-MM-yyyy')," + "to_date('"+dataArrivo+"','dd-MM-yyyy'))"; 
 		System.out.println(sqlString);
@@ -78,15 +77,4 @@ public class DAOPrenotazioni extends ADao implements IDAOPrenotazioni {
 		
 	}
 	
-	public String conversioneData(GregorianCalendar data){
-		int giorno=((data.get(Calendar.DATE))); //
-		int mese=((data.get(Calendar.MONTH)))+1;
-		int year=((data.get(Calendar.YEAR)));
-		String data_in_stringa=giorno+"-"+mese+"-"+year;
-		return data_in_stringa;
-	}
-
-
-
-
 }

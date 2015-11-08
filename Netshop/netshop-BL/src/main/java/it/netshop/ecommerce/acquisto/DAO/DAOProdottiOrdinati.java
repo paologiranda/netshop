@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOProdottiOrdinati extends ADao implements IDAOProdottiOrdinati{
-
+	
+	String url="jdbc:oracle:thin:@//localhost:1521/XE";
+	
 	public DAOProdottiOrdinati() throws ClassNotFoundException {
 		super();
 	}
@@ -29,17 +31,17 @@ public class DAOProdottiOrdinati extends ADao implements IDAOProdottiOrdinati{
 
 	@Override
 	public List<ProdottoOrdinato> readProdottiOrdinati(int idOrdine)throws SQLException {
-		String url="jdbc:oracle:thin:@//localhost:1521/XE";
+		
 		ArrayList<ProdottoOrdinato> prodOrdinati = new ArrayList<ProdottoOrdinato>();
 		String sqlRead = "select * from prodottiOrdinati where codOrdine ="+idOrdine;
 		//ResultSet rs = eseguiQuery(sqlRead);
 		Connection connessione = DriverManager.getConnection(url,"corso","corso");
 		Statement statement = connessione.createStatement();
 		ResultSet rs = statement.executeQuery(sqlRead);
-			while(rs.next()){
-					ProdottoOrdinato p = new ProdottoOrdinato(rs.getString("codOrdine"),rs.getInt("qtaOrdinata"),rs.getInt("sconto"),rs.getDouble("prezzo"),rs.getInt("iva"));
-					prodOrdinati.add(p);
-			}
+		while(rs.next()){
+				ProdottoOrdinato p = new ProdottoOrdinato(rs.getString("codOrdine"),rs.getInt("qtaOrdinata"),rs.getInt("sconto"),rs.getDouble("prezzo"),rs.getInt("iva"));
+				prodOrdinati.add(p);
+		}
 		connessione.close();
 		return prodOrdinati;
 	}
@@ -48,12 +50,11 @@ public class DAOProdottiOrdinati extends ADao implements IDAOProdottiOrdinati{
 	public int deleteProdottiOrdinati(int idOrdine) throws SQLException {
 		String SqlDeleteProdotti = "delete prodottiOrdinati where codOrdine="+idOrdine ;
 		
-			try {
-				return eseguiAggiornamento(SqlDeleteProdotti);
-			} catch (ClassNotFoundException e) {
-				throw new SQLException();
-		
-			}
+		try {
+			return eseguiAggiornamento(SqlDeleteProdotti);
+		} catch (ClassNotFoundException e) {
+			throw new SQLException();
+		}
 
 	}
 	@Override

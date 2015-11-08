@@ -3,6 +3,7 @@ package it.netshop.ecommerce.acquisto.DAO;
 import it.netshop.ecommerce.acquisto.IDAOOrdine;
 import it.netshop.ecommerce.acquisto.dto.Ordine;
 import it.netshop.ecommerce.acquisto.dto.StatoOrdine;
+import it.netshop.ecommerce.acquisto.dto.Util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +17,9 @@ import java.util.List;
 
 
 public class DAOOrdine extends ADao implements IDAOOrdine {
-
+	
+	String url="jdbc:oracle:thin:@//localhost:1521/XE";
+	
 	public DAOOrdine() throws ClassNotFoundException {
 		super();
 	}
@@ -24,11 +27,8 @@ public class DAOOrdine extends ADao implements IDAOOrdine {
 	@Override
 	public int creaOrdine(Ordine ordine) throws SQLException {
 
-		
-		String dataOrdineString=conversioneDataTime(ordine.getDataOrdine());
-		String dataArrivoString=conversioneData(ordine.getDataArrivo());
-		//System.out.println(dataOrdineString);
-		//String data_in_stringa="TO_DATE('01/01/2000','mm/dd/yyyy')";
+		String dataOrdineString = Util.conversioneDataTime(ordine.getDataOrdine());
+		String dataArrivoString = Util.conversioneData(ordine.getDataArrivo());
 
 		String sqlprova="INSERT INTO ORDINI (DATAORDINE,STATO,CODCLIENTE,DATAARRIVO) values (to_date('"+dataOrdineString+"', 'dd-mm-yyyy HH:mi:ss PM'),'"+ordine.getStato()+"',"+ordine.getIdCliente()+",to_date('"+dataArrivoString+"', 'dd-mm-yyyy '))";
 		System.out.println(sqlprova);
@@ -42,7 +42,6 @@ public class DAOOrdine extends ADao implements IDAOOrdine {
 	
 	@Override
 	public int getIdOrdineDb(int idcliente) throws SQLException {
-		String url="jdbc:oracle:thin:@//localhost:1521/XE";
 		
 		int idordine =15;
 		Connection connessione = DriverManager.getConnection(url,"corso","corso");
@@ -119,8 +118,6 @@ public class DAOOrdine extends ADao implements IDAOOrdine {
 	public List<Ordine> letturaOrdini() throws SQLException{
 		
 		List<Ordine> ordini = new ArrayList<Ordine>();
-		
-		String url="jdbc:oracle:thin:@//localhost:1521/XE";
 		String sqlString ="select * from ORDINI";
 		
 		Connection connessione = DriverManager.getConnection(url,"corso","corso");
@@ -142,32 +139,4 @@ public class DAOOrdine extends ADao implements IDAOOrdine {
 		return ordini;
 	}
 	
-	
-	public String conversioneData(GregorianCalendar data){
-		int giorno=((data.get(Calendar.DATE))); //
-		int mese=((data.get(Calendar.MONTH)))+1;
-		int year=((data.get(Calendar.YEAR)));
-		String data_in_stringa=giorno+"-"+mese+"-"+year;
-		return data_in_stringa;
-	}
-	public String conversioneDataTime(GregorianCalendar data){
-		String AM_PM_string;
-		int am_pm=((data.get(Calendar.AM_PM)));
-		int giorno=((data.get(Calendar.DATE))); 
-		int mese=((data.get(Calendar.MONTH)))+1; //il mese parte da zero.
-		int year=((data.get(Calendar.YEAR)));
-		int ora=((data.get(Calendar.HOUR)));
-		if (ora==0){
-			ora=12;
-		}
-		int minuti=((data.get(Calendar.MINUTE)));		
-		int secondi=((data.get(Calendar.SECOND)));
-		if(am_pm==1)
-			AM_PM_string="PM";
-			else
-				AM_PM_string="AM";				
-		
-		String data_in_stringa=giorno+"-"+mese+"-"+year+" "+ora+":"+minuti+":"+secondi+ " "+AM_PM_string;
-		return data_in_stringa;
-	}
 }
