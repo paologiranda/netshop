@@ -31,19 +31,19 @@ public class Proxy implements Filter {
 			ut = (Utente) req.getSession(false).getAttribute(UTENTE);
 		}
 		
-//		String codiceUt = "C";
-//		if (ut != null) {
-//			codiceUt = ut.getCodUtente();
-//		}
-//		if ((sessione == null || ut == null || codiceUt.contains("C"))
-//				&& req.getServletPath().contains("appuntamenti")
-//				&& !req.getServletPath().contains("appuntamenti/index.jsp")) {
-//			System.out
-//					.println(req.getContextPath() + "/appuntamenti/index.jsp");
-//			resp.sendRedirect(req.getContextPath() + "/appuntamenti/index.jsp");
-//		} else {
+		String codiceUt = "C";
+		if (ut != null) {
+			codiceUt = ut.getCodUtente();
+		}
+		if ((sessione == null || ut == null || codiceUt.contains("C"))
+				&& req.getServletPath().contains("appuntamenti")
+				&& !req.getServletPath().contains("appuntamenti/index.jsp")) {
+			System.out
+					.println(req.getContextPath() + "/appuntamenti/index.jsp");
+			resp.sendRedirect(req.getContextPath() + "/appuntamenti/index.jsp");
+		} else {
 			chain.doFilter(request, response);
-//		}
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
