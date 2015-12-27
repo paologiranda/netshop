@@ -1,0 +1,13 @@
+WIKI 
+inserire grunt in progetto
+
+1) spostati nella root del progetto
+
+2) lancia nel terminale il comando npm init
+
+3) lancia il seguente comando per installare grunt nel progetto locale: npm install grunt --save-dev
+
+4)per installare i task:  npm install grunt-contrib-concat --save-dev;
+
+5) per installare tutti i task e depositarli nella cartellla node_modules basta lanciare da terminale il comando 
+npm install

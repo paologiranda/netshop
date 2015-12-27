@@ -1,102 +1,149 @@
-<a class="btn btn active" style="float: right;" role="button"
-	ng-href="#/registrazione">Torna indietro</a>
-<div class="row">
+<a class="btn btn active" style="float: right;" role="button" ng-href="#/registrazione">Torna indietro</a>
 
-	<div class="col-sm-12 col-md-12 col-hi-12">
-		<form ng-submit="registrazionePrivato(Privato)">
-			<div class="form-inline" align="left">
-				
-				<legend>Dati Privato</legend>
-				<p>
-					<input type="text" class="form-control"
-						data-ng-model="Privato.nome" required maxlength="20"
-						placeholder="Nome"><br> <input type="text"
-						class="form-control" data-ng-model="Privato.cognome" required
-						maxlength="20" placeholder="Cognome"> <br><input type="text"
-						class="form-control" data-ng-model="Privato.cf" required
-						maxlength="16" placeholder="Codice Fiscale"><br>
-				</p><br>
-				<input type="number" class="form-control"
-					data-ng-model="Privato.telefono" min="0" max="999999999999"
-					required placeholder="Telefono">
-			</div>
-			<br>
-			<div class="form-inline" align="left">
-				<legend>Indirizzo</legend>
-				<p>
-					<select class="form-control" ng-model="Privato.tipovia" ng-options="value for value in tipovia">
-					</select><br>
-				</p>
-				<p>
-					<input type="text" class="form-control"
-						data-ng-model="Privato.nomevia" required maxlength="40"
-						placeholder="Nome via" /><br> <input type="text" class="form-control"
-						data-ng-model="Privato.numerocivico" required maxlength="5"
-						placeholder="numero civico" /><br> <input type="text"
-						class="form-control" data-ng-model="Privato.scala" maxlength="2"
-						placeholder="Scala"><br>
-				</p>
-				<p>
-					<input type="number" data-ng-model="Privato.piano" max="999"
-						class="form-control" placeholder="Piano">
-				</p>
-			</div>
-			<hr>
-			<div class="form-inline" align="left">
-			<legend>Localit&aacute;</legend>
-					<label>Regione</label>
-				 	<select ng-model="Privato.regioni" id="reg" ng-options="reg.nome as reg.nome for reg in regioni"
-					ng-change="selProvince({{'reg'}})"></select> <br>
-					<label>Provincia</label>
-					<select ng-model="Privato.provincia" ng-disable="!Privato.regioni" id="prov" ng-options="prov.nomeprovincia as prov.nomeprovincia for prov in province"
-					ng-change="selComuni({{'prov'}})"></select><br>
-					<label>Citt&aacute;</label>
-					<select ng-model="Privato.citta" ng-disable="!Privato.regioni" value="citta" ng-options="city for city in citta"
-					ng-change="selComuni(reg)"></select>
-					<!-- 
-					<input type="text" data-ng-model="Privato.citta" required
-						maxlength="20" class="form-control" placeholder="Citta'">
-					<input type="text" data-ng-model="Privato.provincia" required
-						maxlength="2" class="form-control" placeholder="Provincia">
-					<input type="number" data-ng-model="Privato.cap" required
-						min="10000" max="99999" class="form-control" placeholder="CAP">
-				 -->
-				<input type="text" data-ng-model="Privato.paese" required
-					maxlength="20" class="form-control" placeholder="Paese">
-			</div>
-			<br>
-			<div class="form-inline" align="left">
-				<legend>E-mail</legend>
-				<input type="email" data-ng-model="Privato.mail1" required
-					maxlength="50" class="form-control" placeholder="Indirizzo e-mail">
-				<input type="email" data-ng-model="Privato.mail2" required
-					maxlength="50" class="form-control"
-					placeholder="Conferma indirizzo e-mail">
-			</div>
-			<br>
-			<div class="form-inline" align="left">
-				<legend>Password</legend>
-				<input type="password" class="form-control"
-					data-ng-model="Privato.password1" data-minlength="6" required
-					maxlength="16" class="form-control" placeholder="Password">
-				<input type="password" class="form-control"
-					data-ng-model="Privato.password2" required maxlength="16"
-					placeholder="Conferma password">
-			</div>
-			<br>
-			<div align="left">
-				<br>
-				<button type="submit" class="btn btn-warning active">Send</button>
-			</div>
-		</form>
-		<div ng-if="showErrorReg" class="alert alert-danger" role="alert">
-			<span class="glyphicon glyphicon-exclamation-sign"
-			aria-hidden="false"></span>{{ errore }}
+<form ng-submit="registrazionePrivato(Privato)">
+	<legend>Dati Privato</legend>
+	<div class="form-group col-sm-6">
+		<label for="Privato.nome">Nome</label>
+		<div ng-class="control-label" class="col-sm-12">
+			<input type="text" ng-model="Privato.nome" maxlength="20">
 		</div>
 	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.cognome">Cognome</label>
+		<div ng-class="control-label" class="col-sm-12">
+			<input type="text" data-ng-model="Privato.cognome" maxlength="20">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.cf">Codice Fiscale</label>
+		<div ng-class="control-label" class="col-sm-12">
+			<input type="text" data-ng-model="Privato.cf" maxlength="16">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.telefono">Telefono</label>
+		<div class="form-group col-sm-12">
+			<input type="number" data-ng-model="Privato.telefono" min="0"
+				max="999999999999">
+		</div>
+	</div>
+	<legend>Indirizzo</legend>
+	<div class="form-group col-sm-6">
+		<label for="Privato.tipovia">Tipo via</label>
+		<div class="form-group col-sm-12">
+			<span> <select ng-model="Privato.tipovia"
+				ng-options="value for value in tipovia">
+			</select>
+			</span>
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.nomevia">Via</label>
+		<div class="form-group col-sm-12">
+			<input type="text" data-ng-model="Privato.nomevia" maxlength="40" />
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.numerocivico">Numero civico</label>
+		<div class="form-group col-sm-12">
+			<input type="text" data-ng-model="Privato.numerocivico" maxlength="5" />
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.nomevia">Scala</label>
+		<div class="form-group col-sm-12">
+			<input type="text" data-ng-model="Privato.scala" maxlength="2">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.piano">Piano</label>
+		<div class="form-group col-sm-12">
+			<input type="number" data-ng-model="Privato.piano" max="999">
+		</div>
+	</div>
+	<legend>Localit&aacute;</legend>
+	<hr>
+	<div class="form-group col-sm-6">
+		<label for="Privato.paese">Nazione</label>
+		<div class="form-group col-sm-12">
+			<select ng-model="Privato.paese">
+				<option value="IT">ITALIA</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.regioni">Regione</label>
+		<div class="form-group col-sm-12">
+			<select ng-model="Privato.regioni" id="reg"
+				ng-options="reg.nome as reg.nome for reg in regioni"
+				ng-change="selProvince({{'reg'}})"></select>
+		</div>
+	</div>	
+	<div class="form-group col-sm-6">
+		<label for="Privato.paese">Provincia</label> 
+			<div class="form-group col-sm-12">
+			<select ng-model="Privato.provincia"
+		ng-disable="!Privato.regioni" id="prov"
+		ng-options="prov.nomeprovincia as prov.nomeprovincia for prov in province"
+		ng-change="selComuni({{'prov'}})"></select>
+			</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.citta">Comune</label> 
+			<div class="form-group col-sm-12">		
+			<select ng-model="Privato.citta" ng-disable="!Privato.provincie"
+		value="citta"
+		ng-options="citta.nomecomune as citta.nomecomune for citta in citta"
+		ng-change="selComuni(reg)"></select>
+		</div>
+	</div>
+	<!-- 
+					<input type="text" data-ng-model="Privato.citta" 
+						maxlength="20" class="form-control" placeholder="Citta'">
+					<input type="text" data-ng-model="Privato.provincia" 
+						maxlength="2" class="form-control" placeholder="Provincia">
+					<input type="number" data-ng-model="Privato.cap" 
+						min="10000" max="99999" class="form-control" placeholder="CAP">
+				 -->
+	<div class="form-group col-sm-6">
+		<label for="Privato.paese">CAP</label> 
+			<div class="form-group col-sm-12">
+			<input type="number" data-ng-model="Privato.cap" maxlength="20">
+		</div>
+	</div>
+	<legend>E-mail</legend><hr>
+	<div class="form-group col-sm-6">
+		<label for="Privato.mail1">Indirizzo e-mail</label> 
+			<div class="form-group col-sm-12">
+			<input type="email" data-ng-model="Privato.mail1" maxlength="50">
+			</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.mail2">Conferma Indirizzo e-mail</label> 
+			<div class="form-group col-sm-12"> <input
+			type="text" data-ng-model="Privato.mail2" maxlength="50">
+	</div>
+	</div>
+	<legend>Password</legend><hr>
+	<div class="form-group col-sm-6">
+		<label for="Privato.password1">Password</label> 
+			<div class="form-group col-sm-12">
+				<input type="password" data-ng-model="Privato.password1" data-minlength="6" maxlength="16">
+			</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label for="Privato.password2">Conferma password</label> 
+			<div class="form-group col-sm-12">
+			 <input	type="password" data-ng-model="Privato.password2" maxlength="16">
+		</div>
+	</div>
+	<br>
+	<div align="left">
+		<br>
+		<button type="submit" class="btn btn-warning active">Registrati</button>
+	</div>
+</form>
+<div ng-if="showErrorReg" class="alert alert-danger" role="alert">
+	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="false"></span>{{
+	errore }}
 </div>
-<style>
-legend {
-	color: #feb401;
-}
-</style>

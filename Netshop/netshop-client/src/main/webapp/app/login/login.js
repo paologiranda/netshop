@@ -2,8 +2,8 @@
 
 
 angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$window','API_CONF','$rootScope','loginFactory',
-                                              '$localStorage','erroriProvenientiDalServer','$timeout','$modal',
-		function ($scope,$http,$location,$window,apiConf,$rootScope,loginFactory,$localStorage,erroriProvenientiDalServer,$timeout,$modal) {
+                                              '$localStorage','erroriProvenientiDalServer','$timeout','$modal','$log',
+		function ($scope,$http,$location,$window,apiConf,$rootScope,loginFactory,$localStorage,erroriProvenientiDalServer,$timeout,$modal,$log) {
     
 
     $rootScope.userNotExit = false;
@@ -15,17 +15,25 @@ angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$win
          }
     	loginFactory.send(FormData,
         	function(res){
-    		 if (res == "") {     		 			
+    		   if (res == "") {     		 			
     		 		erroriProvenientiDalServer.query(function(data){
     	 			$rootScope.credenziali_errate="Credenziali errate"; 
     	 			$rootScope.userNotExit = true;
     	 			var modalInstance = $modal.open({
-    					templateUrl: 'app/common/alertMsg/cred_err.html',
-    					controller: 'ModalCtrl',
-    					resolve: {}
+    					templateUrl: 'app/acquisto/partial/do_log.html',
+    					controller: function() {
+    						resolve: {
+    								 $rootScope.close = function ($modal,$modalInstance) {
+    									 modalInstance.close();
+    									 $log.info('Modal dismissed at: ' + new Date());
+    								 }
+    						}
+    					}
     				})
-    		 		});
-    		 }else{
+    		      })
+    		    }
+    		 	else
+    		 	{
 //				   $localStorage.token = res.data.token;
     			 if(IamFromCarrello){
     				  $window.location.reload();

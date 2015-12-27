@@ -5,12 +5,12 @@ angular.module('app')
                          'API_CONF','callLoggato','loginCommon','$rootScope','$timeout',
     function($scope,dataSc,$http,$location,$window,callItem,apiConf,callLoggato,loginCommon,$rootScope,$timeout) {
 	 $scope.loading = true;
-	 $timeout(function(){
+//	 $timeout(function(){
 		 	callItem.query(function(data){
 		 		  $scope.loading = false;// chiamata tutti prodotti presenti nel
 		 		  $scope.prodotti = data;
 		 	})
-	 },5000);
+//	 },500);
 	
 	 var IamFromHome = self.location.href;
 	 $rootScope.DoyouFromHome = IamFromHome;// recuper l url della home che mi servirà per la gestione del carrello/login

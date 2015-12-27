@@ -12,7 +12,7 @@ angular.module('app')
                          function($scope, $modalInstance,$rootScope){
 	
 	$scope.close = function(){
-		$modalInstance.close();
+		$modalInstance.dismiss('cancel');
 	}
 }])
 

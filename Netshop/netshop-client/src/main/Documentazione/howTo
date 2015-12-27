@@ -1,0 +1,33 @@
+** Come installare il progetto:
+
+	1) 	Dopo aver installato il server Tomcat spostati nel file "server.xml" 
+		e aggiugi all interno del tag: <Service name="Catalina">
+		i seguenti paramentri:
+
+ 			Apertura porta per servizi rest:
+ 						<Connector 
+ 							address="127.0.0.1"
+ 						 	connectionTimeout="20000" 
+ 						 	port="8081"
+ 						  	protocol="HTTP/1.1" 
+ 						  	redirectPort="8443"/>  
+ 						  	
+    		apertura porta per Grunt:  
+    				   <Connector 
+	    					address="127.0.0.2" 
+	    					connectionTimeout="20000" 
+	    					port="1337" 
+	    					protocol="HTTP/1.1" 
+	    					redirectPort="8444"/>  
+    
+    2) nel file environment.js inserire:
+    
+    		server: 'http://127.0.0.1:8081/api'
+	
+	Corrisponde al primo connector che ho inserito nel file server.xml (per aprire la porta dei servizi rest).
+	
+	
+    3) digitando nell url del browser 127.0.0.2:1337 potrai accedere alla webapp con grunt!
+    
+    
+    

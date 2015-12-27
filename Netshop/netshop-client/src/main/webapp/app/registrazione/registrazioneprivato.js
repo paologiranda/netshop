@@ -50,7 +50,9 @@ angular.module('app')
 							    var idProvincia = provincia.idprovincia;
 							    var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' + idRegione + '&idprovincia=' + idProvincia;
 							    $http.get(url).success(function(data){
-								    $scope.citta = data;
+							    	if(data){
+							    		$scope.citta = data;
+							    	}
 							  });
 					 })
 				   }
@@ -58,50 +60,51 @@ angular.module('app')
 			 })
 		  }
 	  });
-	  $scope.Privato ={
-			  nome: "",
-			  cognome: "",
-			  cf: "",
-	  		  telefono: "",
-	  		  tipovia:"",
-	  		  nomevia: "",
-	  		  numerocivico: "",
-	  		  scala: "",
-	  		  piano:"",
-	  		  citta:"",
-	  		  provincia:"",
-	  		  cap:"",
-	  		  paese:"",
-	  		  mail1:"",
-	  		  mail2:"",
-	  		  password1:"",
-	  		  password2:"",
-	  }
-	  $scope.showErrorReg = false;
-	  
-	  
+	  $scope.Privato ={}
+	  $scope.showErrorReg = false;  
 	  $scope.registrazionePrivato = function(elemento){
-		  
-		  
-		  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
-		  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
-		  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
-		  var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-		  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
-		  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
-		  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
-		  var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
-		  var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-		  var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';
-		  var provincia = 'PROVINCIA' + '=' + $scope.Privato.provincia + '&';
-		  var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-		  var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
-		  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-		  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+		  	
+
+		  $scope.province.forEach(function(provincia){
+				 if(provincia && provincia.nomeprovincia == $scope.Privato.provincia){
+				    var siglaProvincia = provincia.siglaprovincia;
+				    if($scope.datiPrivato == null){
+				   // primo caso
+					  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
+					  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
+					  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+					  var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
+					  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+					  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
+					  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
+					  var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
+					  var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
+					  var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
+					  var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
+					  var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
+					  var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
+					  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+					  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+				  
+				  //secondo caso
+		//		  var nome = 'NOME' + '=' + 'paolo' + '&'; 
+		//		  var cognome = 'COGNOME' + '=' + 'Giranda' + '&';
+		//		  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+		//		  var telefono = 'TELEFONO' + '=' + '0123' + '&';
+		//		  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+		//		  var nomevia = 'NOMEVIA' + '=' + 'A' + '&';
+		//		  var numerocivico = 'NUMEROCIVICO' + '=' + '1' + '&';
+		//		  var scala = 'SCALA' + '=' + '1' + '&';
+		//		  var piano = 'PIANO' + '=' + '1' + '&';
+		//		  var citta = 'CITTA' + '=' + 'Torino' + '&';
+//		  var provincia = 'PROVINCIA' + '=' + 'TO' + '&';
+//		  var cap = 'CAP' + '=' + '10100' + '&';
+//		  var paese = 'PAESE' + '=' + "IT" + '&';
+//		  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+//		  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
 		  $scope.datiPrivatoTot = nome + cognome + cf + telefono + tipovia + nomevia + numerocivico + scala + piano 
 		  					+ citta + provincia + cap + paese + mail + pwd;
-		  
-			  console.log($scope.datiPrivatoTot);
+		  console.log($scope.datiPrivatoTot);
 			  /*if(($scope.Privato.mail1 != $scope.Privato.mail2)&&
 				($scope.Privato.password1 != $scope.Privato.password2)){
 				  console.log('Errore');
@@ -116,19 +119,30 @@ angular.module('app')
 //				  console.log(data);
 				  var callServiceError = apiConf.server + apiConf.base_url + '/errori/errore';
 				  $http.get(callServiceError).
-        		  success(function(data){
-//        		   		console.log(data);
-//        		   				if(data != null){
-//        		   					$scope.errore = data;
-////        		   					console.log($scope.errore);
-//        		   					$scope.showErrorReg = true;
-//        		   				}else{	
-							  	$scope.dataUser = data;
-								$location.path('/inserisciCodiceConferma');
-								regPrivato.setElemSelect(elemento);
-//        		   				}
-					 
-        		   		})
+        		  success(function(IsErrore){
+        		   		console.log(IsErrore);
+        		   				if(IsErrore[0]==null){
+        		   					var callSeriveSendEmail = apiConf.server + apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione';
+	        		   					$http.get(callSeriveSendEmail).
+	        		   					success(function(response){
+	        		   						if(response){
+	        		   							console.log("Mail inviata");
+	        		   						}
+	        		   					})
+//		        		   				$scope.dataUser = data;
+										$location.path('/inserisciCodiceConferma');
+										regPrivato.setElemSelect(elemento);
+        		   				}
+        		   				else
+        		   				{	
+        		   					$scope.errore = IsErrore;
+//    		   						console.log($scope.errore);
+        		   					$scope.showErrorReg = true;
+        		   				}
+         		   		})
 			  })
+			}
+		   }
+		})
 	  }	
   }]);
