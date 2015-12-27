@@ -8,7 +8,7 @@ angular.module('app')
         	send: function(data, success, error) {
                 $http.get(apiConf.server + apiConf.base_url + '/login/loggin?email=' + data.email +'&password=' + data.password)
                 .success(success)
-                .error(error)
+//                .error(error)
             },
             logout: function(success) {
                 success();

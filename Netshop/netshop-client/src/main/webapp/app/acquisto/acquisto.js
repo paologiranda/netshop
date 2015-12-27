@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('app')
-.controller('CarrelloCtrl',['$scope', 'addProd', '$http', '$location','$window','API_CONF','$rootScope','$routeParams','$modal', 
-                            function($scope, addProd, $http, $location,$window,apiConf,$rootScope,$routeParams,$modal) {
+.controller('CarrelloCtrl',['$scope', 'addProd', '$http', '$location','$window','API_CONF','$rootScope','$routeParams','$modal','$log', 
+                            function($scope, addProd, $http, $location,$window,apiConf,$rootScope,$routeParams,$modal,$log) {
 
 	$scope.elemAggiunto = addProd.getElemSelect();
 	$scope.isEmpty = true;
 	$scope.UserNotLoggato = false;
 	var carrelloCallService =  apiConf.server + apiConf.base_url + '/ordini/visualizzaCarrello?codCliente=24';
 	$http.get(carrelloCallService)
-	.success(function(res){
-		if(res){
+	.success(function(data){
+		if(data){
 			$scope.isEmpty=false;
-			$scope.carrello = res;
+			$scope.carrello = data;
 		}
 	})	
 	$scope.remove = function() {
@@ -52,13 +52,14 @@ angular.module('app')
 				$rootScope.DoYouFromCarrello = IamFromCarrello;
 				$rootScope.you_must_do_login = "Accedi prima e/o registrati";
 				var modalInstance = $modal.open({
-					templateUrl: 'app/common/alertMsg/do_log.html',
-					controller: 'ModalCtrl',
-					resolve: {
-						you_must_do_login: function(){
-							return $scope.you_must_do_login;
-						},
-						
+					templateUrl: 'app/acquisto/partial/do_log.html',
+					controller: function() {
+						resolve: {
+								 $rootScope.close = function ($modal,$modalInstance) {
+									 modalInstance.close();
+									 $log.info('Modal dismissed at: ' + new Date());
+								 }
+						}
 					}
 				})
 				

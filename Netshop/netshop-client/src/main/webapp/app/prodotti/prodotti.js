@@ -12,7 +12,7 @@ angular.module('app')
  			categorie= categ;
    			categoriaService.setSelectedProd(categorie);
  				showSubCategory.send(categorie,function(res){
- 					console.log('Ciao');
+// 					console.log('Ciao');
  				})
    		}
    		
@@ -61,15 +61,23 @@ angular.module('app')
       $scope.quantita=[1,2,3,4,5,6,7,8,9,10];
       
       $scope.add = function(elemento){
-    	  if(!$scope.qta){
+    	  if(!$scope.qta || !$scope.selectProd){
         		// se la quantità non c'è apro la modale settando prima il messaggio di errore 
-        		$rootScope.ins_qta = "Inserisci la quantità prima di procedere";
+        		$rootScope.ins_qta = "Inserisci la quantità oppure torna indietro per selezionare" +
+        							"il prodotto";
         		var modalInstance = $modal.open({
-					templateUrl: 'app/common/alertMsg/ins_qta.html',
-					controller: 'ModalCtrl',
-					resolve: {}
+        			templateUrl: 'app/prodotti/partial/ins_qta.html',
+					controller: function() {
+						resolve: {
+									 $rootScope.close = function ($modal,$modalInstance) {
+										 modalInstance.close();
+									 }
+						}
+					}
 				})
-            }else{
+          }
+    	  else
+    	  {
 	            addProd.setElemSelect(elemento);
 	            var itemSelected = {
 	            	codProd: $scope.selectProd.codice,

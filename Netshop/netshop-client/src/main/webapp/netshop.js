@@ -605,7 +605,7 @@ angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$win
     	 			$rootScope.credenziali_errate="Credenziali errate"; 
     	 			$rootScope.userNotExit = true;
     	 			var modalInstance = $modal.open({
-    					templateUrl: 'app/acquisto/partial/do_log.html',
+    					templateUrl: 'app/login/partial/cred_err.html',
     					controller: function() {
     						resolve: {
     								 $rootScope.close = function ($modal,$modalInstance) {
@@ -667,9 +667,9 @@ angular.module('app')
                 .success(success)
                 .error(error)
             },
-            logout: function(success) {
-                success();
-            },               		
+	//            logout: function(success) {
+	//                success();
+	//            },               		
             	     
         }     
 }])
