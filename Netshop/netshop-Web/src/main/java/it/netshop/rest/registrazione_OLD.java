@@ -12,7 +12,7 @@
 //import it.netshop.ecommerce.clienti.dao.DaoClienti;
 //import it.netshop.ecommerce.clienti.dao.IDaoGestioneClienti;
 //import it.netshop.ecommerce.clienti.exception.CfGiaRegistrato;
-//import it.netshop.ecommerce.clienti.exception.ClienteGiaAttivato;
+//import it.netshop.ecommercattivazionee.clienti.exception.ClienteGiaAttivato;
 //import it.netshop.ecommerce.clienti.exception.ClienteGiaRegistrato;
 //import it.netshop.ecommerce.clienti.exception.ClienteInesistente;
 //import it.netshop.ecommerce.clienti.exception.CodiceConfermaErrato;
@@ -49,7 +49,7 @@
 ////	@Context
 ////	private HttpServletRequest request;
 ////	private HttpServletResponse response;
-////	private String url="jdbc:oracle:thin:@//localhost:1521/XE";
+////		
 //	
 //	@Path("/sendEmailConfermaAttivazione")	
 //	@GET

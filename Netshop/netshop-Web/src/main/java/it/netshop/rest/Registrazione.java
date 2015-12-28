@@ -1,10 +1,10 @@
 package it.netshop.rest;
 
 
-import it.netshop.ecommerce.clienti.bo.Azienda;
 import it.netshop.ecommerce.clienti.bo.CategoriaCliente;
 import it.netshop.ecommerce.clienti.bo.CategoriaVia;
 import it.netshop.ecommerce.clienti.bo.Cliente;
+import it.netshop.ecommerce.clienti.bo.ClienteNome;
 import it.netshop.ecommerce.clienti.bo.GestioneClienti;
 import it.netshop.ecommerce.clienti.bo.IGestioneClientiService;
 import it.netshop.ecommerce.clienti.bo.Privato;
@@ -54,19 +54,17 @@ public class Registrazione extends SuperService {
 	@Path("/sendEmailConfermaAttivazione")	
 	@GET
 	@Produces("application/json")
-	//public String sendEmailForAttivazioneCliente(@QueryParam("EMAIL") String email){
-	public String sendEmailForAttivazioneCliente(){
-
-		 SendEmail sendEmail = new SendEmail();
+	public String sendEmailForAttivazioneCliente(@QueryParam("nome") String nome,@QueryParam("mail") String mail) throws ErroreSistema, ClienteInesistente{
+ 
 		 String from = "paologiranda@gmail.com";
 		 String pass = "OldValley1987";
 		 String[] to = {"paologiranda@gmail.com"};
-		 String subject = "This is one firt message";
-		 String body = "Welcome in our countries. We re so happy that you choose us for all!!";
-		// sendEmail.sendFromGMail(from, pass, to, subject, body);
-		 sendEmail.sendFromGMail(from, pass, to, subject, body);
+		 String subject = "Netshop ti dà il benvenuto";	
+		 String codice = SendEmail.getCodConferma(mail);
+		 String body =  "Ciao: " + nome +"</br>" + " Grazie per esserti registrato. Questo è il codice: " + codice;
+		 SendEmail.sendFromGMail(from, pass, to, subject, body);
 		 Gson gson = new Gson();
-		 String messaggio = "messaggio inviato con successo";
+		 String messaggio = "Mail inviata con successo";
 		 String provider = gson.toJson(messaggio);
 		 return provider;
 	}
@@ -114,6 +112,7 @@ public class Registrazione extends SuperService {
 	 {
 //		IGestioneClientiService boClienti = new GestioneClienti();
 		IGestioneClientiService boClienti = null;
+		String res = null;
 		try {
 			boClienti = new GestioneClienti(new DaoClienti(url));
 		} catch (ClassNotFoundException e1) {
@@ -127,12 +126,12 @@ public class Registrazione extends SuperService {
 			try {
 				boClienti.aggiungiCliente(nome, cognome, codiceFiscale,
 						categoria, telefono, mail, paese, citta, provincia,
-						piano, 
-						scala, 
-						CategoriaVia.valueOf(categoriaVia),
-						nomeVia, 
-						cap, numeroCivico, password);
-		
+						piano,scala,CategoriaVia.valueOf(categoriaVia),nomeVia, 
+						cap, numeroCivico, password);	
+					
+				Gson gson = new Gson();
+				String priv= gson.toJson(pv);
+				res ="[" + priv + "]";
 			} catch (ClienteGiaRegistrato e) {
 				// TODO Auto-generated catch block
 				request.getSession().setAttribute("errore", e.toString());
@@ -157,61 +156,76 @@ public class Registrazione extends SuperService {
 				e.printStackTrace();
 				System.out.println(e.toString());
 			}
-			Gson gson = new Gson();
-			
-			String priv= gson.toJson(pv);
-			String x = "[" + priv + "]";
-			
-			//return "registrazione  Privato";	
-			return x;
+			return res;
 	}	
 	
 	
-}
-	
 
- 
- 
-//	@Path("/listaPrivati")
-//	@GET
-//	@Produces("application/json")
-//	public String listaPrivati() {
-////		GestioneClienti gestCli = new GestioneClienti();
-//		GestioneClienti gestCli = null;
-//		try {
-//			gestCli = new GestioneClienti(new DaoClienti(url));
-//		} catch (ClassNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		Gson gson = new Gson();
-//		String ris = null;
-//		List<Cliente> lista = null;
-//		List<Privato> listaPrivato = new ArrayList<Privato> ();
-//		try {
-//			lista = gestCli.listaClienti();
-//			int contatore = 0;
-//			for(int i = 0 ;  i < lista.size() ; i++) {
-//				if(lista.get(i).getCategoria().toString().equals("Privato")){
-//					contatore++;
-//				}
-//			
-//			}
-//			
-//			for(int i = 0 ;  i < lista.size() ; i++) {
-//				if(lista.get(i).getCategoria().toString().equals("Privato")){
-//					listaPrivato.add((Privato)lista.get(i));
-//				}
-//			}
-//			
-//			ris = gson.toJson(listaPrivato);
-//		} catch (TabellaNonTrovata | ErroreSistema e) {
-//			System.out.println("Sono entrato dentro una eccezione!!!");
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return ris;
-//	}
+	
+	@Path("/attivazione") 	
+	@GET
+	@Produces("text/plain")
+	public String attivazione(@QueryParam("mail") String mail, @QueryParam("conferma") String conferma) throws ClienteInesistente, ClienteGiaAttivato, ErroreSistema, CodiceConfermaErrato, DatabaseNonTrovato {
+		System.out.println(mail + " " + conferma);
+		IGestioneClientiService boClienti = null;
+		try {
+			boClienti = new GestioneClienti(new DaoClienti(url));
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int attivazione=1; 
+		attivazione = boClienti.controllaAttivazione(mail, conferma);
+
+		if (attivazione==1){
+			return  "Attivazione riuscita!";
+		}
+		else 
+			return this.getErrore();
+	}
+
+
+	@Path("/listaPrivati")
+	@GET
+	@Produces("application/json")
+	public String listaPrivati() throws TabellaNonTrovata {
+//		GestioneClienti gestCli = new GestioneClienti();
+		GestioneClienti gestCli = null;
+		try {
+			gestCli = new GestioneClienti(new DaoClienti(url));
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Gson gson = new Gson();
+		String ris = null;
+		List<Cliente> lista = null;
+		List<Privato> listaPrivato = new ArrayList<Privato> ();
+		try {
+			lista = gestCli.listaClienti();
+			int contatore = 0;
+			for(int i = 0 ;  i < lista.size() ; i++) {
+				if(lista.get(i).getCategoria().toString().equals("Privato")){
+					contatore++;
+				}
+			
+			}
+			
+			for(int i = 0 ;  i < lista.size() ; i++) {
+				if(lista.get(i).getCategoria().toString().equals("Privato")){
+					listaPrivato.add((Privato)lista.get(i));
+				}
+			}
+			
+			ris = gson.toJson(listaPrivato);
+		} catch (ErroreSistema e) {
+			System.out.println("Sono entrato dentro una eccezione!!!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ris;
+	}
+}
 //
 //	@Path("/registraAzienda")	
 //	@GET
