@@ -2,6 +2,10 @@ package it.netshop.ecommerce.clienti.bo;
 
 public class GeneraMailConferma {
 	static String codiceConfermaMail;
+//	public static void main(String[] args) {
+//		String codiceConferma = "abc";
+//		generaMailConferma(codiceConferma);
+//	}
 	public static void generaMailConferma(String codiceConferma){
 		codiceConfermaMail=codiceConferma;
 		System.out.println("il tuo codice di conferma e'"
