@@ -401,7 +401,7 @@ angular.module('app')
 'use strict';
 
 angular.module('app')
-.controller('CarrelloCtrl',['$scope', 'addProd', '$http', '$location','$window','API_CONF','$rootScope','$routeParams','$modal','$log',
+.controller('CarrelloCtrl',['$scope', 'addProd', '$http', '$location','$window','API_CONF','$rootScope','$routeParams','$modal','$log', 
                             function($scope, addProd, $http, $location,$window,apiConf,$rootScope,$routeParams,$modal,$log) {
 
 	$scope.elemAggiunto = addProd.getElemSelect();
@@ -605,7 +605,7 @@ angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$win
     	 			$rootScope.credenziali_errate="Credenziali errate"; 
     	 			$rootScope.userNotExit = true;
     	 			var modalInstance = $modal.open({
-    					templateUrl: 'app/login/partial/cred_err.html',
+    	 				templateUrl: 'app/login/partial/cred_err.html',
     					controller: function() {
     						resolve: {
     								 $rootScope.close = function ($modal,$modalInstance) {
@@ -665,11 +665,11 @@ angular.module('app')
         	send: function(data, success, error) {
                 $http.get(apiConf.server + apiConf.base_url + '/login/loggin?email=' + data.email +'&password=' + data.password)
                 .success(success)
-                .error(error)
+//                .error(error)
             },
-	//            logout: function(success) {
-	//                success();
-	//            },               		
+            logout: function(success) {
+                success();
+            },               		
             	     
         }     
 }])
@@ -886,8 +886,8 @@ angular.module('app')
 	  $http.get(callServiceRegioni).success(function(data){
 		  $scope.regioni =  {};
 		  $scope.regioni = data;
-		  console.log($scope.regioni);
-		  
+//		  console.log($scope.regioni);
+	  });
 		  // SECONDA CHIAMATA --> PROVINCIE(GLI PASSO L ID DELLA REGIONE CHE HO SELEZIONATO)
 		  /*
 		   * Id regione 
@@ -900,36 +900,38 @@ angular.module('app')
 					 var callServiceProvince = url + idRegione;
 					 $http.get(callServiceProvince).success(function(data){
 						  $scope.province = data;
-					 })
+					  })
 						   // TERZA CHIAMATA --> CITTA(GLI PASSO ???)
 					 /*Id regione
 					  * id provincia
 					  * */
 					 $scope.selComuni = function(){
 						 $scope.province.forEach(function(provincia){
-							 if(provincia.nomeprovincia == $scope.Privato.provincia)
-							    var idProvincia = provincia.idprovincia;
+						 var provinciaIsTruth = false;
+						 if(provincia.nomeprovincia == $scope.Privato.provincia){
+						    var idProvincia = provincia.idprovincia;
+						    provinciaIsTruth = true;
+						 	if(provinciaIsTruth){
 							    var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' + idRegione + '&idprovincia=' + idProvincia;
 							    $http.get(url).success(function(data){
 							    	if(data){
 							    		$scope.citta = data;
 							    	}
-							  });
+							    });
+						 	}
+						 }
 					 })
-				   }
-				 }
-			 })
-		  }
-	  });
-	  $scope.Privato ={}
-	  $scope.showErrorReg = false;  
-	  $scope.registrazionePrivato = function(elemento){
-		  	
-
-		  $scope.province.forEach(function(provincia){
-				 if(provincia && provincia.nomeprovincia == $scope.Privato.provincia){
-				    var siglaProvincia = provincia.siglaprovincia;
-				    if($scope.datiPrivato == null){
+					 }
+		        }
+	        });
+	     } 
+		  $scope.Privato ={}
+		  $scope.showErrorReg = false;  
+		  $scope.registrazionePrivato = function(elemento){
+		  	   $scope.province.forEach(function(provincia){
+				    if(provincia && provincia.nomeprovincia == $scope.Privato.provincia){
+					    var siglaProvincia = provincia.siglaprovincia;
+					    if($scope.datiPrivato == null){
 				   // primo caso
 					  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
 					  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
@@ -1203,9 +1205,9 @@ angular.module('app')
 						}
 					}
 				})
-            }
-    	    else
-    	    {
+          }
+    	  else
+    	  {
 	            addProd.setElemSelect(elemento);
 	            var itemSelected = {
 	            	codProd: $scope.selectProd.codice,
