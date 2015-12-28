@@ -985,7 +985,9 @@ angular.module('app')
         		  success(function(IsErrore){
         		   		console.log(IsErrore);
         		   				if(IsErrore[0]==null){
-        		   					var callSeriveSendEmail = apiConf.server + apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione';
+        		   					var callSeriveSendEmail = apiConf.server + 
+        		   						apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione?nome='+ $scope.Privato.nome + 
+        		   						'&mail=' + $scope.Privato.mail1;
 	        		   					$http.get(callSeriveSendEmail).
 	        		   					success(function(response){
 	        		   						if(response){
@@ -1098,33 +1100,41 @@ angular.module('app')
  * Controller of the bitBotApp
  */
 angular.module('app')
-  .controller('codiceConfermaCtrl',['$scope','$http','regPrivato','$location',
-                                    function($scope,$http,regPrivato,$location){
+  .controller('codiceConfermaCtrl',['$scope','$http','regPrivato','$location','API_CONF','loginFactory','$rootScope',
+                                    function($scope,$http,regPrivato,$location,apiConf,loginFactory,$rootScope){
   		
-	  $scope.PrivatoRegistrato = regPrivato.getElemSelect();
+	  $scope.privatoRegistrato = {}
+	  $scope.privatoRegistrato=  regPrivato.getElemSelect();
 	  $scope.showMessagge = false;
-	  $scope.codiceConferma="";
-	  $scope.email = 'mail' + '=' + $scope.PrivatoRegistrato.mail1;
 	  
-	
-	  var callServCodConf = 'http://localhost:8081/rest/registrazione/mostraCodiceConferma?' + $scope.email;
+	  // schiantone per inserire codice conferma--
+//	  $scope.codiceConferma="";
+//	  $scope.email = 'mail' + '=' + $scope.PrivatoRegistrato.mail1;
+//	  var callServCodConf = 'http://localhost:8081/rest/registrazione/mostraCodiceConferma?' + $scope.email;	  
+//	   $http.get(callServCodConf)
+// 	  .success(function(data){
+// 		  $scope.cConferma = data;
 	  
-	   $http.get(callServCodConf)
- 	  .success(function(data){
- 		  $scope.cConferma = data;
- 		  $scope.mailUtente = 'mail' + '=' + $scope.PrivatoRegistrato.mail1 + '&';
- 		  $scope.codConferma = 'conferma' + '=' + $scope.cConferma;
- 		  	$scope.dataToSend = $scope.mailUtente + $scope.codConferma;
- 		  		
- 		  	$scope.codConferma = function(){
- 		  		 var callServattivazione = 'http://localhost:8081/rest/registrazione/attivazione?' + $scope.dataToSend;	
- 		  		$http.get(callServattivazione)
- 		  		.success(function(){
- 		  			$scope.showMessagge = true;
- 		  			$location.path('/');
- 		  		})
- 		  		}
-  	  })
+	  //send codice via email
+	   
+	 	      $scope.codConferma = function(){
+	 	    	 $scope.mailUtente = 'mail' + '=' +  $scope.privatoRegistrato.mail1 + '&';
+	 	    	 $scope.codice = 'conferma' + '=' + $scope.codiceConferma;
+	 	    	 $scope.dataToSend = $scope.mailUtente + $scope.codice;	
+	 		     var callServattivazione = apiConf.server + apiConf.base_url +  '/registrazione/attivazione?' + $scope.dataToSend;	
+	 		  		$http.get(callServattivazione)
+	 		  		.success(function(data){
+//	 		  			$scope.showMessagge = true;
+	 		  			if(data){
+	 		  				$location.path('/');
+	 		  				loginFactory.send($scope.dataToSend,
+	 		  					function(res){
+	 		  				    $rootScope.token = res.token;
+	 	    				    $window.location.reload();
+	 		  				})
+	 		  			}
+	 		  		})
+		  }
 	 
   }]);
 

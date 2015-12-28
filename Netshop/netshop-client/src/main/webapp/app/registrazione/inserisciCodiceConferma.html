@@ -1,13 +1,13 @@
 <div class="row" align="center">
-	Ciao <strong>{{ PrivatoRegistrato.nome}}</strong>
+	Ciao <strong>{{ privatoRegistrato.nome}}</strong>
 	<p>Inserisci qui il codice che ti abbiamo inviato</p>
 	<p>Hai completato la registrazione. Controlla la tua mail e copia e
 		incolla il per attivare il tuo account</p>
 	<br>
 	<div class="row" align="center">
-		<header>
+<!--  		<header>
 			<p>Input this code:{{ cConferma }}</p>
-		</header>
+		</header>  -->
 		<form ng-submit="codConferma(codiceConferma)">
 			<section>
 				<p><input type="text" ng-model="codiceConferma" required>
