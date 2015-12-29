@@ -40,7 +40,7 @@ angular.module('app')
  		 		  				console.log("Benvenutof");
  		 		  			})
  		 		  		$window.location.reload();
- 		  				$location.path('/');
+ 		  				$location.path('/attivazioneOK');
  		  			}
  		  		})
 	  }

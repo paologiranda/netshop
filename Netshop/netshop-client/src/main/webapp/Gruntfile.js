@@ -78,6 +78,7 @@ module.exports = function(grunt){
 	    	            'app/registrazione/richiediPwd.js',
 	    	            'app/registrazione/registrazione.js',
 	    	            'app/registrazione/registrazioneprivato.js',
+	    	            'app/registrazione/attivazioneOK.js',
 	    	            'app/registrazione/registrazioneazienda.js',
 	    	            'app/registrazione/inserisciCodiceConferma.js',
 	    	            'app/prodotti/prodotti.js',

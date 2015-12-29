@@ -119,6 +119,10 @@ angular.module('app', [
         templateUrl: 'app/admin/ordiniEffettuati.html',
         controller: 'ordiniEffettuatiCtrl'
       })
+       .when('/attivazioneOK', {
+        templateUrl: 'app/registrazione/attivazioneOK.html',
+        controller: 'attivazioneOKCtrl'
+      })
       
       .otherwise({
         templateUrl: 'assets/404.html',

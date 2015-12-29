@@ -41,7 +41,7 @@ angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$win
     			  }else{
     				  $rootScope.token = res.token;
     				  $window.location.reload();
-    				  $window.location = "/";  
+    				  $window.location = '/attivazioneOK';  
     			 }
 			  } 		 
     		})

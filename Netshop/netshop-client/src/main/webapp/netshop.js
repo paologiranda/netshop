@@ -119,6 +119,10 @@ angular.module('app', [
         templateUrl: 'app/admin/ordiniEffettuati.html',
         controller: 'ordiniEffettuatiCtrl'
       })
+       .when('/attivazioneOK', {
+        templateUrl: 'app/registrazione/attivazioneOK.html',
+        controller: 'attivazioneOKCtrl'
+      })
       
       .otherwise({
         templateUrl: 'assets/404.html',
@@ -626,7 +630,7 @@ angular.module('app').controller('LoginCtrl',['$scope','$http','$location','$win
     			  }else{
     				  $rootScope.token = res.token;
     				  $window.location.reload();
-    				  $window.location = "/";  
+    				  $window.location = '/attivazioneOK';  
     			 }
 			  } 		 
     		})
@@ -1019,6 +1023,20 @@ angular.module('app')
 
 /**
  * @ngdoc function
+ * @name netshop
+ * @description
+ * # RegistrazioneCtrl
+ * Controller of the netshop
+ */
+angular.module('app')
+  .controller('attivazioneOKCtrl', function ($scope) {
+
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
  * @name bitBotApp.controller:RegistrazioneaziendaCtrl
  * @description # RegistrazioneaziendaCtrl Controller of the bitBotApp
  */
@@ -1128,16 +1146,14 @@ angular.module('app')
  		  		$http.get(callServattivazione)
  		  		.success(function(data){
  		  			if(data){
- 		  				var callServattivazione = apiConf.server + apiConf.base_url +  '/login/loggin?email=' + $scope.privatoRegistrato.mail1 +'&password=' 
+ 		  				var callServLogin= apiConf.server + apiConf.base_url +  '/login/loggin?email=' + $scope.privatoRegistrato.mail1 +'&password=' 
  		  				+ $scope.privatoRegistrato.password1;
- 		  				$http.get(callServattivazione)
- 		 		  			.success(function(res){
- 		 		  				if(res){
- 		 		  					console.log("Benvenuto");
- 		 		  				}
+ 		  				$http.get(callServLogin)
+ 		 		  			.success(function(data){
+ 		 		  				console.log("Benvenutof");
  		 		  			})
- 		 		  		$window.location.reload();	
- 		  				$location.path('/');
+ 		 		  		$window.location.reload();
+ 		  				$location.path('/attivazioneOK');
  		  			}
  		  		})
 	  }
