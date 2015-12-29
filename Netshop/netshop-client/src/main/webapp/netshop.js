@@ -928,26 +928,27 @@ angular.module('app')
 		  $scope.Privato ={}
 		  $scope.showErrorReg = false;  
 		  $scope.registrazionePrivato = function(elemento){
-		  	   $scope.province.forEach(function(provincia){
+		  	   
+			  $scope.province.forEach(function(provincia){
 				    if(provincia && provincia.nomeprovincia == $scope.Privato.provincia){
 					    var siglaProvincia = provincia.siglaprovincia;
 					    if($scope.datiPrivato == null){
-				   // primo caso
-					  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
-					  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
-					  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
-					  var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-					  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
-					  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
-					  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
-					  var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
-					  var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-					  var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
-					  var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
-					  var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-					  var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
-					  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-					  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+				          // primo caso
+						  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
+						  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
+						  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+						  var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
+						  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+						  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
+						  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
+						  var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
+						  var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
+						  var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
+						  var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
+						  var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
+						  var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
+						  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+						  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
 				  
 				  //secondo caso
 		//		  var nome = 'NOME' + '=' + 'paolo' + '&'; 
@@ -960,19 +961,21 @@ angular.module('app')
 		//		  var scala = 'SCALA' + '=' + '1' + '&';
 		//		  var piano = 'PIANO' + '=' + '1' + '&';
 		//		  var citta = 'CITTA' + '=' + 'Torino' + '&';
-//		  var provincia = 'PROVINCIA' + '=' + 'TO' + '&';
-//		  var cap = 'CAP' + '=' + '10100' + '&';
-//		  var paese = 'PAESE' + '=' + "IT" + '&';
-//		  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-//		  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
-		  $scope.datiPrivatoTot = nome + cognome + cf + telefono + tipovia + nomevia + numerocivico + scala + piano 
+		//		  var provincia = 'PROVINCIA' + '=' + 'TO' + '&';
+		//		  var cap = 'CAP' + '=' + '10100' + '&';
+		//		  var paese = 'PAESE' + '=' + "IT" + '&';
+		//		  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+		//		  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+				  
+				  $scope.datiPrivatoTot = nome + cognome + cf + telefono + tipovia + nomevia + numerocivico + scala + piano 
 		  					+ citta + provincia + cap + paese + mail + pwd;
-		  console.log($scope.datiPrivatoTot);
-			  /*if(($scope.Privato.mail1 != $scope.Privato.mail2)&&
-				($scope.Privato.password1 != $scope.Privato.password2)){
-				  console.log('Errore');
-			  }*/
-			  var regPrivService = apiConf.server + apiConf.base_url + '/registrazione/registraPrivato?' + $scope.datiPrivatoTot;
+		         
+//				  console.log($scope.datiPrivatoTot);
+				  /*if(($scope.Privato.mail1 != $scope.Privato.mail2)&&
+					($scope.Privato.password1 != $scope.Privato.password2)){
+					  console.log('Errore');
+				  }*/
+			       var regPrivService = apiConf.server + apiConf.base_url + '/registrazione/registraPrivato?' + $scope.datiPrivatoTot;
 			  $http({
 				  method: 'get',
 				  url: regPrivService,
@@ -986,8 +989,8 @@ angular.module('app')
         		   		console.log(IsErrore);
         		   				if(IsErrore[0]==null){
         		   					var callSeriveSendEmail = apiConf.server + 
-        		   						apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione?nome='+ $scope.Privato.nome + 
-        		   						'&mail=' + $scope.Privato.mail1;
+    		   						apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione?nome='+ $scope.Privato.nome + 
+    		   						'&mail=' + $scope.Privato.mail1;
 	        		   					$http.get(callSeriveSendEmail).
 	        		   					success(function(response){
 	        		   						if(response){
@@ -1100,43 +1103,45 @@ angular.module('app')
  * Controller of the bitBotApp
  */
 angular.module('app')
-  .controller('codiceConfermaCtrl',['$scope','$http','regPrivato','$location','API_CONF','loginFactory','$rootScope',
-                                    function($scope,$http,regPrivato,$location,apiConf,loginFactory,$rootScope){
+  .controller('codiceConfermaCtrl',['$scope','$http','regPrivato','$location','API_CONF','$window',
+                                    function($scope,$http,regPrivato,$location,apiConf,$window){
   		
 	  $scope.privatoRegistrato = {}
-	  $scope.privatoRegistrato=  regPrivato.getElemSelect();
+	  $scope.privatoRegistrato = regPrivato.getElemSelect();
 	  $scope.showMessagge = false;
+//	  $scope.email = 'mail' + '=' + privatoRegistrato.mail1;
 	  
-	  // schiantone per inserire codice conferma--
-//	  $scope.codiceConferma="";
-//	  $scope.email = 'mail' + '=' + $scope.PrivatoRegistrato.mail1;
-//	  var callServCodConf = 'http://localhost:8081/rest/registrazione/mostraCodiceConferma?' + $scope.email;	  
+	// schiantone per inserire codice conferma--
+//	  var callServCodConf = 'http://localhost:8081/rest/registrazione/mostraCodiceConferma?' + $scope.email;
 //	   $http.get(callServCodConf)
 // 	  .success(function(data){
 // 		  $scope.cConferma = data;
 	  
-	  //send codice via email
-	   
-	 	      $scope.codConferma = function(){
-	 	    	 $scope.mailUtente = 'mail' + '=' +  $scope.privatoRegistrato.mail1 + '&';
-	 	    	 $scope.codice = 'conferma' + '=' + $scope.codiceConferma;
-	 	    	 $scope.dataToSend = $scope.mailUtente + $scope.codice;	
-	 		     var callServattivazione = apiConf.server + apiConf.base_url +  '/registrazione/attivazione?' + $scope.dataToSend;	
-	 		  		$http.get(callServattivazione)
-	 		  		.success(function(data){
-//	 		  			$scope.showMessagge = true;
-	 		  			if(data){
-	 		  				$location.path('/');
-	 		  				loginFactory.send($scope.dataToSend,
-	 		  					function(res){
-	 		  				    $rootScope.token = res.token;
-	 	    				    $window.location.reload();
-	 		  				})
-	 		  			}
-	 		  		})
-		  }
-	 
-  }]);
+	  	//send codice via email
+	  
+	  
+ 	      $scope.codConferma = function(){
+ 	    	 $scope.mailUtente = 'mail' + '=' +  $scope.privatoRegistrato.mail1 + '&';
+ 	    	 $scope.codice = 'conferma' + '=' + $scope.codiceConferma;
+ 	    	 $scope.dataToSend = $scope.mailUtente + $scope.codice;	
+ 		     var callServattivazione = apiConf.server + apiConf.base_url +  '/registrazione/attivazione?' + $scope.dataToSend;	
+ 		  		$http.get(callServattivazione)
+ 		  		.success(function(data){
+ 		  			if(data){
+ 		  				var callServattivazione = apiConf.server + apiConf.base_url +  '/login/loggin?email=' + $scope.privatoRegistrato.mail1 +'&password=' 
+ 		  				+ $scope.privatoRegistrato.password1;
+ 		  				$http.get(callServattivazione)
+ 		 		  			.success(function(res){
+ 		 		  				if(res){
+ 		 		  					console.log("Benvenuto");
+ 		 		  				}
+ 		 		  			})
+ 		 		  		$window.location.reload();	
+ 		  				$location.path('/');
+ 		  			}
+ 		  		})
+	  }
+ }]);
 
 'use strict';
 
