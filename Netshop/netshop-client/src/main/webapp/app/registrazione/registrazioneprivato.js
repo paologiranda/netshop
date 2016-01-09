@@ -2,18 +2,16 @@
 
 /**
  * @ngdoc function
- * @name bitBotApp.controller:RegistrazioneprivatoCtrl
  * @description
  * # RegistrazioneprivatoCtrl
- * Controller of the bitBotApp
  */
 angular.module('app')
   .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF',
                                           function ($scope,$http,$location,regPrivato,apiConf) {
 
 	  //chiamata servizio tipovia
-	  var callServiceTipovia = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
-	  $http.get(callServiceTipovia).success(function(data){
+	  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
+	  $http.get(endpoint).success(function(data){
 		  $scope.tipovia = data;
 	  });
 	  

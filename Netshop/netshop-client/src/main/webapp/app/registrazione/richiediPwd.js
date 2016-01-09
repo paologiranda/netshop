@@ -1,14 +1,12 @@
-'use strict';
-
 /**
  * @ngdoc function
- * @name bitBotApp.controller:AboutCtrl
  * @description
  * # richiediPwdCtrl
- * Controller of the bitBotApp
+ *
  */
 angular.module('app')
-  .controller('richiediPwdCtrl', function ($scope,$http) {
+  .controller('richiediPwdCtrl',['$scope','$http','API_CONF', 
+  function ($scope,$http,apiConf) {
 	  
 	  $scope.newPwd = "";
 	  $scope.showNewPwd = false;
@@ -17,10 +15,9 @@ angular.module('app')
 		  
 		  $scope.dataToSend = 'email' + '=' + $scope.newPwd;
 		  
-		  var callService = 'http://localhost:8081/BitBotMadeInAngularJs/rest/registrazione'+
-		      '/recuperaPwd?' + $scope.dataToSend;
-//		      console.log(callService);
-		  $http.get(callService)
+		  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/recuperaPwd?' + $scope.dataToSend;
+//		      console.log(endpoint);
+		  $http.get(endpoint)
 		  .success(function(data){
 			 console.log(data);
 			 $scope.nuovaPwd = data;
@@ -29,4 +26,4 @@ angular.module('app')
 		  
 	  }
 	  
-  });
+  }]);
