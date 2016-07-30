@@ -63,54 +63,10 @@
 	</div>
 	<legend>Localit&aacute;</legend>
 	<hr>
-	<div class="form-group col-sm-6">
-		<label for="Privato.paese">Nazione</label>
-		<div class="form-group col-sm-12">
-			<select ng-model="Privato.paese">
-				<option value="IT">ITALIA</option>
-			</select>
-		</div>
-	</div>
-	<div class="form-group col-sm-6">
-		<label for="Privato.regioni">Regione</label>
-		<div class="form-group col-sm-12">
-			<select ng-model="Privato.regioni" id="reg"
-				ng-options="reg.nome as reg.nome for reg in regioni"
-				ng-change="selProvince({{'reg'}})"></select>
-		</div>
-	</div>	
-	<div class="form-group col-sm-6">
-		<label for="Privato.paese">Provincia</label> 
-			<div class="form-group col-sm-12">
-			<select ng-model="Privato.provincia"
-		ng-disable="!Privato.regioni" id="prov"
-		ng-options="prov.nomeprovincia as prov.nomeprovincia for prov in province"
-		ng-change="selComuni({{'prov'}})"></select>
-			</div>
-	</div>
-	<div class="form-group col-sm-6">
-		<label for="Privato.citta">Comune</label> 
-			<div class="form-group col-sm-12">		
-			<select ng-model="Privato.citta" ng-disable="!Privato.provincie"
-		value="citta"
-		ng-options="citta.nomecomune as citta.nomecomune for citta in citta"
-		ng-change="selComuni(reg)"></select>
-		</div>
-	</div>
-	<!-- 
-					<input type="text" data-ng-model="Privato.citta" 
-						maxlength="20" class="form-control" placeholder="Citta'">
-					<input type="text" data-ng-model="Privato.provincia" 
-						maxlength="2" class="form-control" placeholder="Provincia">
-					<input type="number" data-ng-model="Privato.cap" 
-						min="10000" max="99999" class="form-control" placeholder="CAP">
-				 -->
-	<div class="form-group col-sm-6">
-		<label for="Privato.paese">CAP</label> 
-			<div class="form-group col-sm-12">
-			<input type="number" data-ng-model="Privato.cap" maxlength="20">
-		</div>
-	</div>
+	
+	<!-- Direttiva per la selezioni dello stato--regione -- provinicia-- comune -->
+   <seleziona-residenza></seleziona-residenza>
+ 
 	<legend>E-mail</legend><hr>
 	<div class="form-group col-sm-6">
 		<label for="Privato.mail1">Indirizzo e-mail</label> 

@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name bitBotApp.directive:menuUtente
- * @description
- * # menuUtente
- * Controller of the bitBotApp
- */
 angular.module('app')
   .directive('menuUtente', function () {
 	  return {

@@ -488,13 +488,6 @@ angular.module('app')
  }]);
 'use strict';
 
-/**
- * @ngdoc function
- * @name bitBotApp.directive:menuUtente
- * @description
- * # menuUtente
- * Controller of the bitBotApp
- */
 angular.module('app')
   .directive('menuUtente', function () {
 	  return {
@@ -816,17 +809,15 @@ angular.module('app')
 
   });
 
-'use strict';
-
 /**
  * @ngdoc function
- * @name bitBotApp.controller:AboutCtrl
  * @description
  * # richiediPwdCtrl
- * Controller of the bitBotApp
+ *
  */
 angular.module('app')
-  .controller('richiediPwdCtrl', function ($scope,$http) {
+  .controller('richiediPwdCtrl',['$scope','$http','API_CONF', 
+  function ($scope,$http,apiConf) {
 	  
 	  $scope.newPwd = "";
 	  $scope.showNewPwd = false;
@@ -835,10 +826,9 @@ angular.module('app')
 		  
 		  $scope.dataToSend = 'email' + '=' + $scope.newPwd;
 		  
-		  var callService = 'http://localhost:8081/BitBotMadeInAngularJs/rest/registrazione'+
-		      '/recuperaPwd?' + $scope.dataToSend;
-//		      console.log(callService);
-		  $http.get(callService)
+		  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/recuperaPwd?' + $scope.dataToSend;
+//		      console.log(endpoint);
+		  $http.get(endpoint)
 		  .success(function(data){
 			 console.log(data);
 			 $scope.nuovaPwd = data;
@@ -847,7 +837,7 @@ angular.module('app')
 		  
 	  }
 	  
-  });
+  }]);
 
 'use strict';
 
@@ -867,93 +857,41 @@ angular.module('app')
 
 /**
  * @ngdoc function
- * @name bitBotApp.controller:RegistrazioneprivatoCtrl
  * @description
  * # RegistrazioneprivatoCtrl
- * Controller of the bitBotApp
  */
 angular.module('app')
   .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF',
                                           function ($scope,$http,$location,regPrivato,apiConf) {
 
 	  //chiamata servizio tipovia
-	  var callServiceTipovia = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
-	  $http.get(callServiceTipovia).success(function(data){
+	  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
+	  $http.get(endpoint).success(function(data){
 		  $scope.tipovia = data;
 	  });
 	  
-	  
-	  // serie di chiamate che restiuiscono la REGIONE/PROVINCIA/PAESE DI RESIDENZA CHE POI IINVIERò AL SERVIZIO DI REGISTRAZIONE;
-	  
-	  //PRIMA CHIAMATA-_>REGIONI
-	  var callServiceRegioni = apiConf.server + apiConf.base_url + '/local/regioni';
-	  $http.get(callServiceRegioni).success(function(data){
-		  $scope.regioni =  {};
-		  $scope.regioni = data;
-//		  console.log($scope.regioni);
-	  });
-		  // SECONDA CHIAMATA --> PROVINCIE(GLI PASSO L ID DELLA REGIONE CHE HO SELEZIONATO)
-		  /*
-		   * Id regione 
-		   * */
-		  $scope.selProvince = function(){
-			 $scope.regioni.forEach(function(regione){
-				 if(regione.nome == $scope.Privato.regioni){
-					 var idRegione = regione.id;
-					 var url = apiConf.server + apiConf.base_url + '/local/province?idregione=';
-					 var callServiceProvince = url + idRegione;
-					 $http.get(callServiceProvince).success(function(data){
-						  $scope.province = data;
-					  })
-						   // TERZA CHIAMATA --> CITTA(GLI PASSO ???)
-					 /*Id regione
-					  * id provincia
-					  * */
-					 $scope.selComuni = function(){
-						 $scope.province.forEach(function(provincia){
-						 var provinciaIsTruth = false;
-						 if(provincia.nomeprovincia == $scope.Privato.provincia){
-						    var idProvincia = provincia.idprovincia;
-						    provinciaIsTruth = true;
-						 	if(provinciaIsTruth){
-							    var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' + idRegione + '&idprovincia=' + idProvincia;
-							    $http.get(url).success(function(data){
-							    	if(data){
-							    		$scope.citta = data;
-							    	}
-							    });
-						 	}
-						 }
-					 })
-					 }
-		        }
-	        });
-	     } 
-		  $scope.Privato ={}
-		  $scope.showErrorReg = false;  
-		  $scope.registrazionePrivato = function(elemento){
-		  	   
-			  $scope.province.forEach(function(provincia){
-				    if(provincia && provincia.nomeprovincia == $scope.Privato.provincia){
-					    var siglaProvincia = provincia.siglaprovincia;
-					    if($scope.datiPrivato == null){
-				          // primo caso
-						  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
-						  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
-						  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
-						  var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-						  var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
-						  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
-						  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
-						  var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
-						  var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-						  var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
-						  var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
-						  var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-						  var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
-						  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-						  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+	  $scope.Privato ={}
+	  $scope.showErrorReg = false;  
+	  $scope.registrazionePrivato = function(elemento){
+      if($scope.datiPrivato == null){
+		  // primo caso
+		  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
+		  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
+		  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
+	      var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+		  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
+		  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
+          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
+          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
+          var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
+          var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
+          var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
+          var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
+          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
 				  
+          
 				  //secondo caso
 		//		  var nome = 'NOME' + '=' + 'paolo' + '&'; 
 		//		  var cognome = 'COGNOME' + '=' + 'Giranda' + '&';
@@ -970,8 +908,8 @@ angular.module('app')
 		//		  var paese = 'PAESE' + '=' + "IT" + '&';
 		//		  var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
 		//		  var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
-				  
-				  $scope.datiPrivatoTot = nome + cognome + cf + telefono + tipovia + nomevia + numerocivico + scala + piano 
+		
+          $scope.datiPrivatoTot = nome + cognome + cf + telefono + tipovia + nomevia + numerocivico + scala + piano 
 		  					+ citta + provincia + cap + paese + mail + pwd;
 		         
 //				  console.log($scope.datiPrivatoTot);
@@ -990,7 +928,7 @@ angular.module('app')
 				  var callServiceError = apiConf.server + apiConf.base_url + '/errori/errore';
 				  $http.get(callServiceError).
         		  success(function(IsErrore){
-        		   		console.log(IsErrore);
+        		   		console.log(IsErrore); 
         		   				if(IsErrore[0]==null){
         		   					var callSeriveSendEmail = apiConf.server + 
     		   						apiConf.base_url + '/registrazione/sendEmailConfermaAttivazione?nome='+ $scope.Privato.nome + 
@@ -1014,9 +952,7 @@ angular.module('app')
          		   		})
 			  })
 			}
-		   }
-		})
-	  }	
+		   }	
   }]);
 
 'use strict';
@@ -1456,3 +1392,85 @@ angular.module('app')
   		}
   	};
   });
+
+'use strict';
+
+angular.module('app')
+.directive('selezionaResidenza',['$http','API_CONF',
+                                 
+     function ($http,apiConf) {
+	  return {
+		  restrict : 'E',		  
+		  scope:{
+			  stati: '@',
+			  regioni: '=',
+			  
+			 
+		  },    
+		  templateUrl : "app/registrazione/directives/selezionaResidenza.html",
+		  transclude : true,
+		  link: function(scope){
+			  //stati
+			  var callServiceStati = apiConf.server + apiConf.base_url + '/local/stati';
+			  $http.get(callServiceStati).success(function(data){
+				   scope.stati =  {};
+				   scope.stati = data;
+
+			  });
+			  
+			  /* 
+			   * regioni
+			   * 
+			   */
+			  var callServiceRegioni = apiConf.server + apiConf.base_url + '/local/regioni';
+			  $http.get(callServiceRegioni).success(function(data){
+				  scope.regioni =  {};
+				  scope.regioni = data;
+			  });
+			  			   
+			   /*  provincie
+			    * 
+			   *   parametro:
+			   *   	Id regione 
+			   * */
+			  scope.selProvince = function(){
+				 scope.regioni.forEach(function(regione){
+					if(regione.nome == scope.Privato.regioni){
+						scope.idRegione = regione.id;
+					    var url = apiConf.server + apiConf.base_url + '/local/province?idregione=';
+						var callServiceProvince = url + scope.idRegione;
+						$http.get(callServiceProvince).success(function(data){
+								  scope.province = data;
+						})
+					 }
+				 });
+			   } 
+			
+			  
+			  /*  comuni
+			  * 
+			  * Id regione
+	          * id provincia
+              * */
+			  scope.selComuni = function(){
+				  scope.province.forEach(function(provincia){
+				  var provinciaIsTruth = false;
+				  if(provincia.nomeprovincia == scope.Privato.provincia){
+					 var idProvincia = provincia.idprovincia;
+					 provinciaIsTruth = true;
+					 if(provinciaIsTruth){
+						 var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' +  scope.idRegione + '&idprovincia=' + idProvincia;
+						 $http.get(url).success(function(data){
+						 if(data){
+								 scope.citta = data;
+						 }
+                         });
+					  }
+				   }
+				})
+			 }	          
+			  
+			
+		  }
+	  }
+}]);
