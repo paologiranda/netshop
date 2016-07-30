@@ -7,15 +7,16 @@ module.exports = function(grunt){
 	  grunt.loadNpmTasks('grunt-connect');
 	  grunt.loadNpmTasks('grunt-contrib-watch');
 	  grunt.loadNpmTasks('grunt-contrib-less');
+	  grunt.loadNpmTasks('grunt-contrib-copy');
 	  
 
 	  grunt.registerTask('default',['build']);
-	  grunt.registerTask('build', ['concat:angular','concat:netshop']);
+	  grunt.registerTask('build', ['concat:angular','concat:netshop','copy:myvoice']);
 	  
 	  grunt.registerTask('serve', function (target) {
 		    grunt.task.run([
 		      'build',
-		      'connect:server'
+//		      'connect:server'
 		    ]);
 	  });
 
@@ -80,6 +81,7 @@ module.exports = function(grunt){
 	    	            'app/prodotti/prodotti.js',
 	    	            'app/prodotti/service/descrizioneProdotto.js',
 	    	            'app/prodotti/resource/categoriaService.js',
+	    	            'app/registrazione/directives/registrazione-directives.js'
 	    	            ],
 	    	        dest: 'netshop.js'
 	    	  },
@@ -94,15 +96,22 @@ module.exports = function(grunt){
 	    	  		 }
 	    	      },    	     
 	      },
-	   // The actual grunt server settings
-	      connect: {
-	        server: {
-	        	options: {
-		            port: 9000,
-		        	hostname: 'localhost',
-					livereload: 35729
-		            }
-	        	}
-	        },
+	      copy: {
+	    	  myvoice: {
+	    	    files: [
+	    	      { src:"netshop.js", dest:"../../src/main/webapp/netshop.js" },
+	    	    ]
+	    	  }
+	    	},
+//	   // The actual grunt server settings
+//	      connect: {
+//	        server: {
+//	        	options: {
+//		            port: 9000,
+//		        	hostname: 'localhost',
+//					livereload: 35729
+//		            }
+//	        	}
+//	        },
 	});
 }
