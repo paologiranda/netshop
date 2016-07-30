@@ -1,0 +1,11 @@
+Come configurare il progetto:
+
+-- Scaricare da svn il progetto al seguente url: https://github.com/paologiranda/netshop/tree/master/Netshop
+
+-- Una volta creato il progetto fare l'import dei progetti figli via maven
+
+-- lanciare la build dei progetti ... ricorda  che dopo aver messo la cartella node_modules nella target del mobile client di non fare più il clean del progetto padre 
+e ne tantomeno del client...il goal di maven deve essere -U install
+
+-- se hai problemi con l'installazione di grunt segui questa guida http://stackoverflow.com/questions/13925916/fatal-error-unable-to-find-local-grunt
+
