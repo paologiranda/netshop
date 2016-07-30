@@ -5,6 +5,7 @@ import it.netshop.db.DbUtil;
 import it.netshop.ecommerce.local.dto.Comune;
 import it.netshop.ecommerce.local.dto.Provincia;
 import it.netshop.ecommerce.local.dto.Regione;
+import it.netshop.ecommerce.local.dto.State;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.mail.internet.NewsAddress;
 
 public class DAOLocal implements IDAOLocal {
 	private static int MAX_REGIONI = 21;
@@ -80,6 +83,24 @@ public class DAOLocal implements IDAOLocal {
 		}
 		DbUtil.close(connessione, statement, resultSet);
 		return comuni;
+	}
+
+	@Override
+	public List<State> leggiStati() throws SQLException {
+		Connection connessione = ConnessioneDB.getConnection();
+		Statement statement = connessione.createStatement();
+		
+		String sqlcomuni = "SELECT * FROM STATE";
+		
+		ResultSet resultSet = statement.executeQuery(sqlcomuni);
+		List<State> stati = new ArrayList<State>();
+		while (resultSet.next()) {
+			State state = new State();
+			state.setnomeStato(resultSet.getString("LASTNAME"));
+			stati.add(state);
+		}
+		DbUtil.close(connessione, statement, resultSet);
+		return stati;
 	}
 
 }
