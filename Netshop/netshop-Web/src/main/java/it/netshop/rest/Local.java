@@ -18,6 +18,22 @@ public class Local {
 	private HttpServletRequest request;
 	private GestioneLocal localita;
 	
+	
+	@GET
+	@Path("/stati")
+	@Produces("application/json")
+	public String stati (){
+		
+		Gson gson = new Gson();
+		String stati = null;
+		
+		localita = new GestioneLocal();
+		stati = gson.toJson(localita.getStati());
+		
+		return stati;
+	}
+	
+	
 	@GET
 	@Path("/regioni")
 	@Produces("application/json")
