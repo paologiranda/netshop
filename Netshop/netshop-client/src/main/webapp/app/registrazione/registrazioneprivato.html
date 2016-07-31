@@ -27,6 +27,9 @@
 				max="999999999999">
 		</div>
 	</div>
+	
+	                                               <!-- INDIRIZZO -->
+	                                               
 	<legend>Indirizzo</legend>
 	<div class="form-group col-sm-6">
 		<label for="Privato.tipovia">Tipo via</label>
@@ -61,12 +64,16 @@
 			<input type="number" data-ng-model="Privato.piano" max="999">
 		</div>
 	</div>
+	
 	<legend>Localit&aacute;</legend>
 	<hr>
 	
 	<!-- Direttiva per la selezioni dello stato--regione -- provinicia-- comune -->
-   <seleziona-residenza></seleziona-residenza>
+   <seleziona-residenza cap="Privato.cap"></seleziona-residenza>
  
+ 
+ 													<!-- EMAIL-->
+ 													
 	<legend>E-mail</legend><hr>
 	<div class="form-group col-sm-6">
 		<label for="Privato.mail1">Indirizzo e-mail</label> 

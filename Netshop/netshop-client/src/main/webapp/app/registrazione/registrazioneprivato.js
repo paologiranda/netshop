@@ -18,25 +18,24 @@ angular.module('app')
 	  $scope.Privato ={}
 	  $scope.showErrorReg = false;  
 	  $scope.registrazionePrivato = function(elemento){
-      if($scope.datiPrivato == null){
-		  // primo caso
-		  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
-		  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
-		  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
-          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-	      var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
-		  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
-		  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
-          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
-          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-          var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
-          var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
-          var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-          var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
-          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
-				  
-          
+		  if($scope.datiPrivato == null){
+			  // primo caso
+			  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
+			  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
+			  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+	          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
+		      var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+			  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
+			  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
+	          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
+	          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
+	          var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
+	          var provincia = 'PROVINCIA' + '=' + $scope.siglaProvincia + '&';
+	          var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
+	          var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
+	          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+	          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+	
 				  //secondo caso
 		//		  var nome = 'NOME' + '=' + 'paolo' + '&'; 
 		//		  var cognome = 'COGNOME' + '=' + 'Giranda' + '&';

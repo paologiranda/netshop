@@ -7,10 +7,11 @@ angular.module('app')
 	  return {
 		  restrict : 'E',		  
 		  scope:{
-			  stati: '@',
+			  stati: '=',
 			  regioni: '=',
-			  
-			 
+			  siglaProvincia: '=',
+			  comune: '=',
+			  cap:'=',
 		  },    
 		  templateUrl : "app/registrazione/directives/selezionaResidenza.html",
 		  transclude : true,
@@ -49,7 +50,7 @@ angular.module('app')
 						})
 					 }
 				 });
-			   } 
+			  } 
 			
 			  
 			  /*  comuni
@@ -61,21 +62,22 @@ angular.module('app')
 				  scope.province.forEach(function(provincia){
 				  var provinciaIsTruth = false;
 				  if(provincia.nomeprovincia == scope.Privato.provincia){
-					 var idProvincia = provincia.idprovincia;
+					 scope.provincia = {};
+					 scope.provincia = provincia;
+					 scope.provincia.idProvincia = provincia.idprovincia;
+					 scope.siglaProvincia = provincia.siglaProvincia;
 					 provinciaIsTruth = true;
 					 if(provinciaIsTruth){
-						 var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' +  scope.idRegione + '&idprovincia=' + idProvincia;
+						 var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' +  scope.idRegione + '&idprovincia=' + scope.provincia.idProvincia;
 						 $http.get(url).success(function(data){
-						 if(data){
+							 if(data){
 								 scope.citta = data;
-						 }
+							 }
                          });
 					  }
 				   }
 				})
 			 }	          
-			  
-			
 		  }
 	  }
 }]);

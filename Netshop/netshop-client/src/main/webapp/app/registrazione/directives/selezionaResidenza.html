@@ -1,9 +1,7 @@
 <div class="form-group col-sm-6">
 	<label for="Privato.paese">Nazione</label>
 	<div class="form-group col-sm-12">
-		<!-- <select ng-model="Privato.paese" ng-option="reg.nomeStato as reg.nomeStato for reg in stati"> -->
-		<select>
-			<option value="IT">{{stati}}</option>
+		 <select ng-model="Privato.paese" ng-options="stato.nomeStato as stato.nomeStato for stato in stati">  
 		</select>
 	</div>
 </div>
@@ -34,8 +32,8 @@
 	</div>
 </div>
 <div class="form-group col-sm-6">
-	<label for="Privato.paese">CAP</label>
+	<label for="cap">CAP</label>
 	<div class="form-group col-sm-12">
-		<input type="number" data-ng-model="Privato.cap" maxlength="20">
+		<input type="number" ng-model="Privato.cap" maxlength="20">
 	</div>
 </div>
