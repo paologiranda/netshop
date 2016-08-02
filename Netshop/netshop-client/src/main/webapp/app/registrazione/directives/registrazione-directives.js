@@ -84,7 +84,7 @@ angular.module('app')
 					  //alert(provincia.nomeprovincia);
 					 scope.provincia = provincia;
 					 
-					 if (scope.datiDaInviareAlContoller.dati.provincia!=null){
+					 if (scope.datiDaInviareAlContoller.dati.provincia==undefined){
 						 scope.datiDaInviareAlContoller.dati.push(scope.provincia);
 					 }
 					 
