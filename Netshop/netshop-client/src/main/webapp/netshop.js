@@ -809,6 +809,27 @@ angular.module('app')
 
   });
 
+'use strict';
+
+
+angular.module('app')
+  .service('GetDatiGeograficiService', function () {
+
+    var elem = [];
+
+   
+    return {
+    	getValue: function(){
+    		return elem;
+    	},
+    	setValue: function(elemento){
+    		elem = elemento;
+    	}
+    }
+
+
+  });
+
 /**
  * @ngdoc function
  * @description
@@ -861,37 +882,55 @@ angular.module('app')
  * # RegistrazioneprivatoCtrl
  */
 angular.module('app')
-  .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF',
-                                          function ($scope,$http,$location,regPrivato,apiConf) {
+  .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF','$rootScope',
+                                          function ($scope,$http,$location,regPrivato,apiConf,$rootScope) {
 
 	  //chiamata servizio tipovia
 	  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
 	  $http.get(endpoint).success(function(data){
 		  $scope.tipovia = data;
 	  });
+	 
 	  
+	  // mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni
+	  $scope.$on("updateDataForRegistration", function(event,args){
+			$scope.paeseSelezionato = args;
+          
+      })
+	 
+       $scope.$on("inserisciCapDinamicamente", function(res){
+          $scope.cap= "10043";
+          alert("sono passatp finalemnte");
+      })
+      
+      
 	  $scope.Privato ={}
 	  $scope.showErrorReg = false;  
 	  $scope.registrazionePrivato = function(elemento){
-      if($scope.datiPrivato == null){
-		  // primo caso
-		  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
-		  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
-		  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
-          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-	      var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
-		  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
-		  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
-          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
-          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-          var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
-          var provincia = 'PROVINCIA' + '=' + siglaProvincia + '&';
-          var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-          var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
-          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
-          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
-				  
-          
+		  if($scope.datiPrivato == null){
+			
+			  // Dati anagrafici
+			  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
+			  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
+			  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
+	          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
+		      
+	          // indirizzo di residenza
+	          var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+			  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
+			  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
+	          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
+	          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
+	          var citta = 'CITTA' + '=' + $scope.Privato.comune + '&';	 
+	          var provincia = 'PROVINCIA' + '=' + $scope.siglaProvincia + '&';
+	          var cap = 'CAP' + '=' + $scope.cap + '&';
+	          var paese = 'PAESE' + '=' + $scope.Privato.stato + '&';
+	          $scope.paeseSelezionato = paese;
+	          
+	          //mail
+	          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
+	          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
+	
 				  //secondo caso
 		//		  var nome = 'NOME' + '=' + 'paolo' + '&'; 
 		//		  var cognome = 'COGNOME' + '=' + 'Giranda' + '&';
@@ -1396,81 +1435,111 @@ angular.module('app')
 'use strict';
 
 angular.module('app')
-.directive('selezionaResidenza',['$http','API_CONF',
+.directive('selezionaResidenza',['$http','API_CONF','$rootScope',
                                  
-     function ($http,apiConf) {
+     function ($http,apiConf,$rootScope) {
 	  return {
 		  restrict : 'E',		  
 		  scope:{
-			  stati: '@',
-			  regioni: '=',
-			  
-			 
+			  statoDiResidenza: '=',
+			  regioneDiResidenza: '=',
+			  siglaProvinciaDiResidenza: '=',
+			  comuneDiResidenza: '=',
+			  cap:'=',
 		  },    
 		  templateUrl : "app/registrazione/directives/selezionaResidenza.html",
 		  transclude : true,
-		  link: function(scope){
-			  //stati
+		  link: function(scope,element,attr){
+
+			  /*
+			   * lista di tutti gli stati europei
+			   * 
+			   */
+			  
 			  var callServiceStati = apiConf.server + apiConf.base_url + '/local/stati';
 			  $http.get(callServiceStati).success(function(data){
-				   scope.stati =  {};
-				   scope.stati = data;
+				   scope.elencoStati = data;
 
 			  });
 			  
+			  
 			  /* 
-			   * regioni
+			   * lista di tutte le regioni
 			   * 
 			   */
 			  var callServiceRegioni = apiConf.server + apiConf.base_url + '/local/regioni';
 			  $http.get(callServiceRegioni).success(function(data){
-				  scope.regioni =  {};
-				  scope.regioni = data;
+				  scope.elencoRegioni = data;
 			  });
-			  			   
-			   /*  provincie
+			  			  
+			  
+			  scope.datiDaInviareAlContoller = {};
+			  scope.datiDaInviareAlContoller.dati= [];
+			  
+			  scope.selezionaStato = function() {
+				  // invio questi dati al controller
+				 // scope.$emit("updateDataForRegistration",scope.Privato.stato);
+				  scope.datiDaInviareAlContoller.dati.push(scope.Privato.stato);
+			  }
+			  
+			  
+			   /*  
+			    * lista delle provincie in base alla regione selezionata
 			    * 
-			   *   parametro:
-			   *   	Id regione 
-			   * */
+			    *   parametri:
+			    *   	Id regione 
+			    * */
 			  scope.selProvince = function(){
-				 scope.regioni.forEach(function(regione){
+				 scope.elencoRegioni.forEach(function(regione){
 					if(regione.nome == scope.Privato.regioni){
+						//alert(regione.nome);
 						scope.idRegione = regione.id;
+						scope.datiDaInviareAlContoller.dati.push(regione);
 					    var url = apiConf.server + apiConf.base_url + '/local/province?idregione=';
 						var callServiceProvince = url + scope.idRegione;
 						$http.get(callServiceProvince).success(function(data){
-								  scope.province = data;
+								  scope.elencoProvince = data;
 						})
 					 }
 				 });
-			   } 
+			  } 
 			
 			  
-			  /*  comuni
-			  * 
-			  * Id regione
-	          * id provincia
-              * */
+			  /*  
+			   * lista dei comuni in base alla regione e provincia scelta
+			   * 
+			   * Parametri in input al servizio:
+			   * Id regione
+	           * id provincia
+               * */
 			  scope.selComuni = function(){
-				  scope.province.forEach(function(provincia){
+				  scope.elencoProvince.forEach(function(provincia){
 				  var provinciaIsTruth = false;
 				  if(provincia.nomeprovincia == scope.Privato.provincia){
-					 var idProvincia = provincia.idprovincia;
+					  //alert(provincia.nomeprovincia);
+					 scope.provincia = provincia;
+					 
+					 if (scope.datiDaInviareAlContoller.dati.provincia!=null){
+						 scope.datiDaInviareAlContoller.dati.push(scope.provincia);
+					 }
+					 
+					 scope.provincia.idProvincia = provincia.idprovincia;
 					 provinciaIsTruth = true;
 					 if(provinciaIsTruth){
-						 var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' +  scope.idRegione + '&idprovincia=' + idProvincia;
+						 var url = apiConf.server + apiConf.base_url + '/local/comuni?idregione=' +  scope.idRegione + '&idprovincia=' + scope.provincia.idProvincia;
 						 $http.get(url).success(function(data){
-						 if(data){
-								 scope.citta = data;
-						 }
+							 if(data){
+								 scope.elencoComuni = data;
+							 }
                          });
 					  }
 				   }
 				})
-			 }	          
-			  
-			
+			 }
+			 scope.getValueComune = function(){
+				 scope.datiDaInviareAlContoller.dati.push(scope.Privato.comune);
+				 scope.$emit("inserisciCapDinamicamente",scope.datiDaInviareAlContoller);
+			 } 
 		  }
 	  }
 }]);

@@ -71,6 +71,7 @@ module.exports = function(grunt){
 	    	            'app/services/subCatService.js',
 	    	            'app/services/addToCarr.js',
 	    	            'app/services/regPrivato.js',
+	    	            'app/services/getDatiGeografici.js',
 	    	            'services/codConfermaService.js',
 	    	            'app/registrazione/richiediPwd.js',
 	    	            'app/registrazione/registrazione.js',

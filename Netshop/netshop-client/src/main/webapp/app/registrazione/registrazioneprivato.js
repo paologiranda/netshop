@@ -6,33 +6,52 @@
  * # RegistrazioneprivatoCtrl
  */
 angular.module('app')
-  .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF',
-                                          function ($scope,$http,$location,regPrivato,apiConf) {
+  .controller('RegistrazioneprivatoCtrl',['$scope','$http','$location','regPrivato','API_CONF','$rootScope',
+                                          function ($scope,$http,$location,regPrivato,apiConf,$rootScope) {
 
 	  //chiamata servizio tipovia
 	  var endpoint = apiConf.server + apiConf.base_url + '/registrazione/tipovia';
 	  $http.get(endpoint).success(function(data){
 		  $scope.tipovia = data;
 	  });
+	 
 	  
+	  // mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni
+	  $scope.$on("updateDataForRegistration", function(event,args){
+			$scope.paeseSelezionato = args;
+          
+      })
+	 
+       $scope.$on("inserisciCapDinamicamente", function(res){
+          $scope.cap= "10043";
+          alert("sono passatp finalemnte");
+      })
+      
+      
 	  $scope.Privato ={}
 	  $scope.showErrorReg = false;  
 	  $scope.registrazionePrivato = function(elemento){
 		  if($scope.datiPrivato == null){
-			  // primo caso
+			
+			  // Dati anagrafici
 			  var nome = 'NOME' + '=' + $scope.Privato.nome + '&'; 
 			  var cognome = 'COGNOME' + '=' + $scope.Privato.cognome + '&';
 			  var cf = 'CF' + '=' + $scope.Privato.cf + '&';
 	          var telefono = 'TELEFONO' + '=' + $scope.Privato.telefono + '&';
-		      var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
+		      
+	          // indirizzo di residenza
+	          var tipovia = 'TIPOVIA' + '=' + $scope.Privato.tipovia + '&';
 			  var nomevia = 'NOMEVIA' + '=' + $scope.Privato.nomevia + '&';
 			  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
 	          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
 	          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-	          var citta = 'CITTA' + '=' + $scope.Privato.citta + '&';	 
+	          var citta = 'CITTA' + '=' + $scope.Privato.comune + '&';	 
 	          var provincia = 'PROVINCIA' + '=' + $scope.siglaProvincia + '&';
-	          var cap = 'CAP' + '=' + $scope.Privato.cap + '&';
-	          var paese = 'PAESE' + '=' + $scope.Privato.paese + '&';
+	          var cap = 'CAP' + '=' + $scope.cap + '&';
+	          var paese = 'PAESE' + '=' + $scope.Privato.stato + '&';
+	          $scope.paeseSelezionato = paese;
+	          
+	          //mail
 	          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
 	          var pwd = 'PASSWORD' + '=' + $scope.Privato.password1;
 	

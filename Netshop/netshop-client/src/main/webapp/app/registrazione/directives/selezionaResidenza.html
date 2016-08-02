@@ -1,39 +1,50 @@
+
+		<!--  Nazione -->
+		
 <div class="form-group col-sm-6">
-	<label for="Privato.paese">Nazione</label>
+	<label for="Privato.stato">Nazione</label>
 	<div class="form-group col-sm-12">
-		 <select ng-model="Privato.paese" ng-options="stato.nomeStato as stato.nomeStato for stato in stati">  
+		 <select ng-model="Privato.stato" id="stato"
+			     ng-options="stato.nomeStato as stato.nomeStato for stato in elencoStati"
+		  	     ng-change="selezionaStato(stato)">  
 		</select>
 	</div>
 </div>
+
+
 <div class="form-group col-sm-6">
 	<label for="Privato.regioni">Regione</label>
 	<div class="form-group col-sm-12">
 		<select ng-model="Privato.regioni" id="reg"
-			ng-options="reg.nome as reg.nome for reg in regioni"
-			ng-change="selProvince({{'reg'}})"></select>
+			ng-options="reg.nome as reg.nome for reg in elencoRegioni"
+			ng-change="selProvince(reg)"></select>
+			<!-- ng-change="selProvince({{'reg'}})"></select> -->
 	</div>
 </div>
+
+
 <div class="form-group col-sm-6">
 	<label for="Privato.paese">Provincia</label>
 	<div class="form-group col-sm-12">
 		<select ng-model="Privato.provincia" ng-disable="!Privato.regioni"
 			id="prov"
-			ng-options="prov.nomeprovincia as prov.nomeprovincia for prov in province"
+			ng-options="prov.nomeprovincia as prov.nomeprovincia for prov in elencoProvince"
 			ng-change="selComuni({{'prov'}})"></select>
 	</div>
 </div>
 <div class="form-group col-sm-6">
 	<label for="Privato.citta">Comune</label>
 	<div class="form-group col-sm-12">
-		<select ng-model="Privato.citta" ng-disable="!Privato.provincie"
-			value="citta"
-			ng-options="citta.nomecomune as citta.nomecomune for citta in citta"
-			ng-change="selComuni(reg)"></select>
+		<select ng-model="valueComune" ng-disable="!Privato.provincie"
+			value="valueComune"
+			ng-options="citta.nomecomune as citta.nomecomune for citta in elencoComuni"
+			ng-change="getValueComune()"></select>
+			<!-- ng-change="selComuni({{'citta'}})"></select> -->
 	</div>
 </div>
 <div class="form-group col-sm-6">
 	<label for="cap">CAP</label>
 	<div class="form-group col-sm-12">
-		<input type="number" ng-model="Privato.cap" maxlength="20">
+		<input type="text" ng-model="cap" maxlength="20">
 	</div>
 </div>
