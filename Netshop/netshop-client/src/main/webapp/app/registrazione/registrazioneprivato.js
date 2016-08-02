@@ -16,16 +16,11 @@ angular.module('app')
 	  });
 	 
 	  
-	  // mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni
-	  $scope.$on("updateDataForRegistration", function(event,args){
-			$scope.paeseSelezionato = args;
-          
-      })
-	 
-       $scope.$on("inserisciCapDinamicamente", function(res){
-          $scope.cap= "10043";
-          alert("sono passatp finalemnte");
-      })
+	  // inserisce il cap dinamicamente....in futuro pero...mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni 
+      $scope.$on("inserisciCapDinamicamente", function(event,args){
+   	   $scope.paeseSelezionato = args;
+         $scope.cap= "10043";
+     })
       
       
 	  $scope.Privato ={}

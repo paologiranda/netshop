@@ -43,8 +43,7 @@ angular.module('app')
 			  scope.datiDaInviareAlContoller.dati= [];
 			  
 			  scope.selezionaStato = function() {
-				  // invio questi dati al controller
-				 // scope.$emit("updateDataForRegistration",scope.Privato.stato);
+				  //mi salvo lo stato selezionato nell array
 				  scope.datiDaInviareAlContoller.dati.push(scope.Privato.stato);
 			  }
 			  
