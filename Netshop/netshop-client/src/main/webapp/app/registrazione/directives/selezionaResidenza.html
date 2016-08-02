@@ -35,7 +35,7 @@
 <div class="form-group col-sm-6">
 	<label for="Privato.citta">Comune</label>
 	<div class="form-group col-sm-12">
-		<select ng-model="valueComune" ng-disable="!Privato.provincie"
+		<select ng-model="Privato.comune" ng-disable="!Privato.provincie"
 			value="valueComune"
 			ng-options="citta.nomecomune as citta.nomecomune for citta in elencoComuni"
 			ng-change="getValueComune()"></select>
