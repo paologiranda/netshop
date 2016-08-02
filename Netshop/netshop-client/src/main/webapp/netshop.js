@@ -892,16 +892,16 @@ angular.module('app')
 	  });
 	 
 	  
-	  // mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni
-	  $scope.$on("updateDataForRegistration", function(event,args){
-			$scope.paeseSelezionato = args;
-          
-      })
-	 
-       $scope.$on("inserisciCapDinamicamente", function(res){
-          $scope.cap= "10043";
-          alert("sono passatp finalemnte");
-      })
+	  // inserisce il cap dinamicamente....in futuro pero...mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni 
+      $scope.$on("inserisciCapDinamicamente", function(event,args){
+   	   $scope.paeseSelezionato = args;
+         $scope.cap= "10043";
+         $scope.Privato.elemGeog = {};
+         $scope.Privato.elemGeog.FromDirective = [];
+         $scope.Privato.elemGeog.stato = args.dati[0];
+         $scope.Privato.elemGeog.idProvincia = args.dati[2].siglaprovincia;
+         $scope.Privato.elemGeog.comune = args.dati[3];
+     })
       
       
 	  $scope.Privato ={}
@@ -921,10 +921,10 @@ angular.module('app')
 			  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
 	          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
 	          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-	          var citta = 'CITTA' + '=' + $scope.Privato.comune + '&';	 
-	          var provincia = 'PROVINCIA' + '=' + $scope.siglaProvincia + '&';
+	          var citta = 'CITTA' + '=' + $scope.Privato.elemGeog.comune + '&';	 
+	          var provincia = 'PROVINCIA' + '=' + $scope.Privato.elemGeog.idProvincia + '&';
 	          var cap = 'CAP' + '=' + $scope.cap + '&';
-	          var paese = 'PAESE' + '=' + $scope.Privato.stato + '&';
+	          var paese = 'PAESE' + '=' + $scope.Privato.elemGeog.stato + '&';
 	          $scope.paeseSelezionato = paese;
 	          
 	          //mail
@@ -1477,8 +1477,7 @@ angular.module('app')
 			  scope.datiDaInviareAlContoller.dati= [];
 			  
 			  scope.selezionaStato = function() {
-				  // invio questi dati al controller
-				 // scope.$emit("updateDataForRegistration",scope.Privato.stato);
+				  //mi salvo lo stato selezionato nell array
 				  scope.datiDaInviareAlContoller.dati.push(scope.Privato.stato);
 			  }
 			  
@@ -1519,7 +1518,7 @@ angular.module('app')
 					  //alert(provincia.nomeprovincia);
 					 scope.provincia = provincia;
 					 
-					 if (scope.datiDaInviareAlContoller.dati.provincia!=null){
+					 if (scope.datiDaInviareAlContoller.dati.provincia==undefined){
 						 scope.datiDaInviareAlContoller.dati.push(scope.provincia);
 					 }
 					 

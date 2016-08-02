@@ -15,15 +15,21 @@ angular.module('app')
 		  $scope.tipovia = data;
 	  });
 	 
+	  $scope.Privato ={}
 	  
 	  // inserisce il cap dinamicamente....in futuro pero...mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni 
       $scope.$on("inserisciCapDinamicamente", function(event,args){
    	   $scope.paeseSelezionato = args;
          $scope.cap= "10043";
+         $scope.Privato.elemGeog = {};
+         $scope.Privato.elemGeog.FromDirective = [];
+         $scope.Privato.elemGeog.stato = args.dati[0];
+         $scope.Privato.elemGeog.idProvincia = args.dati[2].siglaprovincia;
+         $scope.Privato.elemGeog.comune = args.dati[3];
      })
       
-      
-	  $scope.Privato ={}
+
+	 
 	  $scope.showErrorReg = false;  
 	  $scope.registrazionePrivato = function(elemento){
 		  if($scope.datiPrivato == null){
@@ -40,11 +46,12 @@ angular.module('app')
 			  var numerocivico = 'NUMEROCIVICO' + '=' + $scope.Privato.numerocivico + '&';
 	          var scala = 'SCALA' + '=' + $scope.Privato.scala + '&';
 	          var piano = 'PIANO' + '=' + $scope.Privato.piano + '&';
-	          var citta = 'CITTA' + '=' + $scope.Privato.comune + '&';	 
-	          var provincia = 'PROVINCIA' + '=' + $scope.siglaProvincia + '&';
+	          
+	          var citta = 'CITTA' + '=' + $scope.Privato.elemGeog.comune + '&';	 
+	          var provincia = 'PROVINCIA' + '=' + $scope.Privato.elemGeog.idProvincia + '&';
 	          var cap = 'CAP' + '=' + $scope.cap + '&';
-	          var paese = 'PAESE' + '=' + $scope.Privato.stato + '&';
-	          $scope.paeseSelezionato = paese;
+	          var paese = 'PAESE' + '=' + $scope.Privato.elemGeog.stato + '&';
+
 	          
 	          //mail
 	          var mail = 'mail' + '=' + $scope.Privato.mail1 + '&';
