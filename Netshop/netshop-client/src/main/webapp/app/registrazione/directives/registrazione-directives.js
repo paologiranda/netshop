@@ -102,6 +102,7 @@ angular.module('app')
 				})
 			 }
 			 scope.getValueComune = function(){
+				 //inserisco nell array da inviare al controller il comune selezionato
 				 scope.datiDaInviareAlContoller.dati.push(scope.Privato.comune);
 				 scope.$emit("inserisciCapDinamicamente",scope.datiDaInviareAlContoller);
 			 } 

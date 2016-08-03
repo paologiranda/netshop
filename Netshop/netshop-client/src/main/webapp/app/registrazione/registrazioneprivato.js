@@ -17,7 +17,7 @@ angular.module('app')
 	 
 	  $scope.Privato ={}
 	  
-	  // inserisce il cap dinamicamente....in futuro pero...mi sono creato due ascoltatori per passare i dati con la direttiva delle nazioni 
+	  // mi becco i dati che arrivano dalla direttiva per lo stato etc e inserisce il cap dinamicamente....in futuro pero...
       $scope.$on("inserisciCapDinamicamente", function(event,args){
    	   $scope.paeseSelezionato = args;
          $scope.cap= "10043";
