@@ -24,7 +24,7 @@ angular.module('app')
          $scope.Privato.elemGeog = {};
          $scope.Privato.elemGeog.FromDirective = [];
          $scope.Privato.elemGeog.stato = args.dati[0];
-         $scope.Privato.elemGeog.idProvincia = args.dati[2].siglaprovincia;
+         $scope.Privato.elemGeog.idProvincia = args.dati[2].idprovincia;
          $scope.Privato.elemGeog.comune = args.dati[3];
      })
       
