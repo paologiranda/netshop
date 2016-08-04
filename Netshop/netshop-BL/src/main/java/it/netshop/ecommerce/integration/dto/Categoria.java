@@ -1,5 +1,6 @@
 package it.netshop.ecommerce.integration.dto;
 
 public enum Categoria {
-	Informatica,Elettronica;
+	Informatica,Elettronica,Abbigliamento,SportETempolibero,Musica,Viaggi,Libri;
+
 }
